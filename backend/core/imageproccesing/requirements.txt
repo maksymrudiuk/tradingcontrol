@@ -1,0 +1,10 @@
+opencv-python==3.4.0.12
+numpy==1.14.0
+matplotlib==2.1.2
+Pillow==5.0.0
+opencv-contrib-python==3.4.0.12
+cycler==0.10.0
+pyparsing==2.2.0
+python-dateutil==2.6.1
+pytz==2018.3
+six==1.11.0
