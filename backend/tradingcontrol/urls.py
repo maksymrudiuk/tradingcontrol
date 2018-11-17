@@ -32,8 +32,8 @@ urlpatterns = [
     path('api/v1/token-verify/', verify_jwt_token),
 
     # Apps path
-    # path('api/v1/core/', include('core.urls')),
-    # path('api/v1/user/', include('user.urls')),
+    path('api/v1/core/', include('core.urls')),
+    path('api/v1/accounts/', include('user.urls')),
 
     # Defaul path
     path('admin/', admin.site.urls),

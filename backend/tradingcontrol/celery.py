@@ -3,9 +3,9 @@ import os
 from celery import Celery
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tradigncontrol.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tradingcontrol.settings')
 
-app = Celery('tradigncontrol')
+app = Celery('tradingcontrol')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 

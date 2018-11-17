@@ -1,7 +1,7 @@
 from django.urls import path
-from . import views
+from .views import Upload
 
 urlpatterns = [
     # Upload photos and set a task on imageprocessing
-    path('upload/', views.Upload.as_view()),
+    path('upload/', Upload.as_view()),
 ]

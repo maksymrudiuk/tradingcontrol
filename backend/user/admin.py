@@ -13,6 +13,7 @@ class UserProfileAdmin(UserAdmin):
                 ('first_name',
                  'last_name',
                  'email',
+                 'company',
                  'role',
                  'phone',
                  'user_photo')}),

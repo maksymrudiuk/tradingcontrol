@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from ..models import Store
+from goods.serializers import GoodsSerializer
 
 
 class StoreSerializer(serializers.ModelSerializer):

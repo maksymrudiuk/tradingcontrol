@@ -11,4 +11,11 @@ class UploadPhoto(models.Model):
 
     file = models.ImageField(_('Файл'))
 
+    owner = models.ForeignKey(
+        'user.UserProfile',
+        verbose_name=_('Власник'),
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE)
+
     created_at = models.DateTimeField(_('Завантажено'), default=timezone.now)
