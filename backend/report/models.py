@@ -13,7 +13,7 @@ class ReportData(models.Model):
         verbose_name=_('Назва'),
         max_length=256)
 
-    assortment = models.ForeignKey(
+    store = models.ForeignKey(
         'store.Store',
         null=True,
         verbose_name=_('Асортимент'),
@@ -24,6 +24,10 @@ class ReportData(models.Model):
         verbose_name=_('Власник'),
         null=True,
         on_delete=models.CASCADE)
+
+    assortment_percent = models.SmallIntegerField(
+        verbose_name=_('Наявність асортименту у %'),
+        null=True)
 
     created_at = models.DateTimeField(_('Створений'), default=timezone.now)
 
@@ -42,10 +46,7 @@ class ReportItem(models.Model):
         max_length=256,
         blank=True)
 
-    status = models.CharField(
-        verbose_name=_('Статус'),
-        max_length=256,
-        blank=True)
+    status = models.BooleanField(_('Знайдено?'))
 
     report = models.ForeignKey(
         'ReportData',
@@ -56,4 +57,3 @@ class ReportItem(models.Model):
 
     def __str__(self):
         return '%s' % self.name
-

@@ -76,3 +76,5 @@ docs/_build/
 db.py
 
 media/
+.ipynb_checkpoints/
+

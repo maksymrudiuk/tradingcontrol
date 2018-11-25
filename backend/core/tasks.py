@@ -1,49 +1,62 @@
 #!/usr/bin/python3
-# from .imageproccesing import init as ipc
-from .models import UploadPhoto
+from .imageproccesing import init as ipc
+# from .models import UploadPhoto
 # from report.models import ReportItem, ReportData
-# from goods.models import Goods
-from store.models import GoodsInStore
+from store.models import GoodsInStore, Store
+from user.models import UserProfile
 from celery import shared_task
+from .utils import (name_generator, is_it_processed, perform_update)
 
 
 @shared_task
-def detect(uploadphoto_id, store_id):
+def detect(uploadphoto_list, store_id, username):
 
     goods = GoodsInStore.objects.filter(store_id=store_id)
-    for item in goods:
-        print(item.goods.image)
-    obj = UploadPhoto.objects.get(id=uploadphoto_id)
-    print(obj.file)
+    store = Store.objects.get(id=store_id)
+    user = UserProfile.objects.get(username=username)
 
-    # if obj:
-    #     train = obj.file
-    #     report_data = {'name': str(train)[:7]}
-    #     report = ReportData(**report_data)
-    #     report.assortment_id = store_id
-    #     report.save()
+    if uploadphoto_list and goods:
 
-    #     if imgs:
-    #         for img in imgs:
+        data = {
+            'name': name_generator(),
+            'store': store,
+            'owner': user
+        }
 
-    #             query = img.image
-    #             print(train)
-    #             image_status = ipc.init(query, train)
-    #             data_report_item = {'name': img.name}
+        found_list = []
 
-    #             if image_status:
-    #                 data_report_item['status'] = 'found'
-    #             else:
-    #                 data_report_item['status'] = 'not found'
+        positiv = 0
 
-    #             report_item = ReportItem(**data_report_item)
-    #             report_item.report_id = report.id
-    #             report_item.save()
+        for file in uploadphoto_list:
+            for item in goods:
 
-    #     return 'end'
+                if is_it_processed(found_list, item.goods.name):
+                    continue
 
-    # else:
-    #     return 'error'
+                train = file
+                query = item.goods.image
+
+                image_status = ipc.init(query, train)
+
+                if image_status:
+                    positiv += 1
+
+                data_report_item = {
+                    'name': str(item.goods.name),
+                    'status': image_status
+                }
+
+                found_list = perform_update(found_list, item.goods.name)
+                found_list.append(data_report_item)
+
+        goods_percent = round(((positiv / len(goods)) * 100), 2)
+        data.update({'assortment_percent': int(goods_percent)})
+        data.update({'assortment': found_list})
+
+        return data
+
+    else:
+        return 'some error in processing'
 
 
 @shared_task

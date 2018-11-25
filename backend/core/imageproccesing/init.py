@@ -27,8 +27,10 @@ def init(query_path, train_path):
     # x = int(w // 2)
     # reference_point = (x, y)
 
-    path = str(train_path)
+    path = str(train_path)[7:]
     train_p = os.path.join(settings.MEDIA_ROOT, path)
+    # train_p = os.path.join(path)
+    # print(train_p)
     train = mpimg.imread(train_p)
 
     # Get matches and keypoints

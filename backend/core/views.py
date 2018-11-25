@@ -22,6 +22,8 @@ class Upload(APIView):
         errors = []
         upload_photos = []
 
+        # print(self.request.data.getlist('files[]'))
+
         for file in self.request.data.getlist('files[]'):
 
             data = {'file': file}

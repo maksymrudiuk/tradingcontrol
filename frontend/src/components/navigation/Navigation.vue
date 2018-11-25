@@ -35,6 +35,11 @@ import { USER_REQUEST } from '@/store/mutations/user-mutation-types.js'
 
 export default {
   name: 'Navigation',
+  data () {
+    return {
+      // isAuthenticated: this.$store.getters.isAuthenticated
+    }
+  },
   methods: {
     logout: function () {
       this.$store.dispatch(AUTH_LOGOUT).then(() => {
@@ -49,7 +54,7 @@ export default {
     })
   },
   beforeMount () {
-    this.$store.dispatch(USER_REQUEST)
+    if (this.isAuthenticated) { this.$store.dispatch(USER_REQUEST) }
   }
 }
 </script>

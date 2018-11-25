@@ -39,14 +39,12 @@ const actions = {
       Auth.authRequest(data)
         .then(response => {
           const token = response.data.token
-          // console.log(token)
           localStorage.setItem('user-token', token)
           // console.log('before' + token)
           axios.defaults.headers.common['Authorization'] = 'JWT ' + token
           // console.log('after' + token)
           commit(AUTH_SUCCESS, token)
           dispatch(USER_REQUEST)
-          console.log('ok')
           resolve(response)
         })
         .catch(err => {

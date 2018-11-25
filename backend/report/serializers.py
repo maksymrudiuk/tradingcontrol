@@ -1,24 +1,29 @@
 from rest_framework import serializers
-from ..models import ReportData, ReportItem
+from .models import ReportData, ReportItem
+from user.serializers import UserProfileSerializer
+from store.serializers import StoreSerializer
 
 
 class ReportItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReportItem
-        fields = '__all__'
+        fields = ('name', 'status')
 
 
 class ReportDataSerializer(serializers.ModelSerializer):
 
+    owner = UserProfileSerializer(required=False)
+    store = StoreSerializer(required=False)
     assortment = ReportItemSerializer(many=True)
 
     class Meta:
         model = ReportData
-        fields = ('id', 'name', 'assortment')
+        fields = ('id', 'name', 'owner', 'store',
+                  'assortment_percent', 'assortment')
 
     def create(self, validated_data):
         assortments_data = validated_data.pop('assortment')
-        report = report.objects.create(**validated_data)
+        report = ReportData.objects.create(**validated_data)
         for assortment_data in assortments_data:
             ReportItem.objects.create(report=report, **assortment_data)
         return report
