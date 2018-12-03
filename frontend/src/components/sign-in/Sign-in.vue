@@ -2,6 +2,9 @@
   <div class="center-inside">
     <form class="sign-in-form" @submit.prevent="login">
       <h3>Login</h3>
+      <div v-if="isError" class="alert alert-danger" role="alert">
+        Помилка аутентифікації
+      </div>
       <div class="form-group">
         <!-- <label for="username">Username</label> -->
         <input required v-model="username" type="text" class="form-control" id="username" placeholder="username" autocomplete="username">
@@ -24,6 +27,11 @@ export default {
     return {
       username: '',
       password: ''
+    }
+  },
+  computed: {
+    isError: function () {
+      return this.$store.getters.authStatus === 'error'
     }
   },
   methods: {

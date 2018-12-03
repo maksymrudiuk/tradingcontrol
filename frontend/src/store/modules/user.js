@@ -4,7 +4,7 @@ import { AUTH_LOGOUT } from '../mutations/auth-mutation-types.js'
 
 const state = {
   profile: {},
-  status: ''
+  status: 'logout'
 }
 
 const getters = {
@@ -25,6 +25,7 @@ const mutations = {
   },
   [AUTH_LOGOUT] (state) {
     state.profile = {}
+    state.status = 'logout'
   }
 }
 

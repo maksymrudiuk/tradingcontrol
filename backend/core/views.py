@@ -1,13 +1,14 @@
+# Download modules
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import (IsAuthenticated)
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework.status import (HTTP_400_BAD_REQUEST,
                                    HTTP_201_CREATED)
-# from .tasks import detect, test
-from .tasks import detect
+
+# Local modules
+from .tasks import image_processing
 from .serializers import UploadPhotoSerializer
-from rest_framework_jwt.authentication import JSONWebTokenAuthentication
-# from .models import UploadPhoto
 
 
 # Create your views here.
@@ -15,14 +16,13 @@ class Upload(APIView):
 
     authentication_classes = (JSONWebTokenAuthentication,)
     permission_classes = (IsAuthenticated,)
-    # permission_classes = (AllowAny,)
 
     def post(self, request, format=None):
 
         errors = []
         upload_photos = []
 
-        # print(self.request.data.getlist('files[]'))
+        store_id = 1  # must be dynamic value
 
         for file in self.request.data.getlist('files[]'):
 
@@ -38,4 +38,7 @@ class Upload(APIView):
         if errors:
             return Response(errors, status=HTTP_400_BAD_REQUEST)
         else:
+            image_processing.delay(upload_photos,
+                                   store_id,
+                                   str(self.request.user))
             return Response(upload_photos, status=HTTP_201_CREATED)

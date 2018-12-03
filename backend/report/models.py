@@ -50,6 +50,7 @@ class ReportItem(models.Model):
 
     report = models.ForeignKey(
         'ReportData',
+        related_name='assortment',
         verbose_name=_('Звіт'),
         blank=False,
         null=True,

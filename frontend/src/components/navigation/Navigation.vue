@@ -7,10 +7,10 @@
         <div class="col-lg-2">
           <router-link to="/" class="navbar-brand nav-logo">Trading Control</router-link>
         </div>
-        <div class="col-lg-2 offset-lg-6 active-user">
-          <p v-if="isProfileLoaded && isAuthenticated" class="username">user: {{ getProfile.username }}</p>
+        <div class="col-lg-2 offset-lg-3 active-user">
+          <p v-if="isProfileLoaded && isAuthenticated" class="username">Доброго дня&nbsp;&nbsp;<strong>{{ getProfile.username }}</strong></p>
         </div>
-        <div class="col-lg-2 tabs">
+        <div class="col-lg-2 offset-lg-3 tabs">
           <ul class="navbar-nav navbar-tips">
             <li v-if="isAuthenticated" class="nav-item active nav-tip">
               <router-link to="/dashboard/home" class="nav-link">Головна</router-link>

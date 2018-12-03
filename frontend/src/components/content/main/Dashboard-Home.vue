@@ -9,45 +9,62 @@
           <th scope="col">Торгова точка</th>
           <th scope="col">Час початку</th>
           <th scope="col">Час закінчення</th>
-          <th scope="col">Час роботи</th>
+          <th scope="col">Тривалість роботи</th>
           <th scope="col">Відсоток наявності товару</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(route, index) in report.routes" :key=route.id>
+        <tr v-for="(report, index) in getReports" :key=report.id>
           <th scope="row">{{ index+1 }}</th>
-          <td>{{ route.name }}</td>
-          <td>{{ route.t_start }}</td>
-          <td>{{ route.t_finish }}</td>
-          <td>{{ route.t_delta }}</td>
-          <td :class="'table-'+cellBackground(route.goods_status)">{{ route.goods_status }}</td>
+          <td>{{ report.store.name }}</td>
+          <td>9.00</td>
+          <td>9.30</td>
+          <td>30</td>
+          <td :class="'table-'+cellBackground(report.assortment_percent)">{{ report.assortment_percent }}</td>
         </tr>
       </tbody>
     </table>
-    <div class='chart'>
-      <canvas id="planet-chart"></canvas>
+    <!-- <p>{{ getBarDatacollection }}</p> -->
+    <div class="chart">
+      <bar-chart
+        :chartdata='getBarDatacollection'
+        :options='barOptions'
+        :height='600'>
+      </bar-chart>
     </div>
     <div class="chart">
-      <canvas id="pie-chart"></canvas>
+      <pie-chart
+        :chartdata='getPieDatacollection'
+        :options='pieOptions'
+        :height='400'>
+      </pie-chart>
     </div>
   </main>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import Chart from 'chart.js'
-import barChartData from '@/chart/bar.js'
-import doughnutChartData from '@/chart/doughnut.js'
+import { GET_REPORTS } from '@/store/mutations/report-mutation-types.js'
+import barChartOptions from '@/chart/bar.js'
+import pieChartOptions from '@/chart/pie.js'
+import BarChart from './BarChart.vue'
+import PieChart from './PieChart.vue'
 
 export default{
   name: 'Main',
+  components: {
+    BarChart,
+    PieChart
+  },
   data () {
     return {
-      barChartData: barChartData,
-      doughnutChartData: doughnutChartData
+      barOptions: barChartOptions,
+      pieOptions: pieChartOptions
     }
   },
-  computed: mapGetters(['report']),
+  computed: {
+    ...mapGetters(['reportStatus', 'getReports', 'getBarDatacollection', 'getPieDatacollection'])
+  },
   methods: {
     cellBackground: function (value) {
       if (value >= 70) {
@@ -57,29 +74,13 @@ export default{
       } else {
         return 'danger'
       }
-    },
-    createBarChart: function (chartId, chartData) {
-      const ctx = document.getElementById(chartId)
-      // eslint-disable-next-line
-      const myChart = new Chart(ctx, {
-        type: chartData.type,
-        data: chartData.data,
-        options: chartData.options
-      })
-    },
-    createDoughnutChart: function (chartId, chartData) {
-      const ctx = document.getElementById(chartId)
-      // eslint-disable-next-line
-      const myChart = new Chart(ctx, {
-        type: chartData.type,
-        data: chartData.data,
-        options: chartData.options
-      })
     }
   },
   mounted () {
-    this.createBarChart('planet-chart', this.barChartData)
-    this.createDoughnutChart('pie-chart', this.doughnutChartData)
+
+  },
+  beforeMount () {
+    this.$store.dispatch(GET_REPORTS)
   }
 }
 

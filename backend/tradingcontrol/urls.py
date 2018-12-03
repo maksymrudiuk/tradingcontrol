@@ -34,6 +34,7 @@ urlpatterns = [
     # Apps path
     path('api/v1/core/', include('core.urls')),
     path('api/v1/accounts/', include('user.urls')),
+    path('api/v1/reports/', include('report.urls')),
 
     # Defaul path
     path('admin/', admin.site.urls),

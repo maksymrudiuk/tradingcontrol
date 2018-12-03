@@ -1,11 +1,12 @@
 import { Auth } from '@/api/auth'
 import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_ERROR, AUTH_LOGOUT } from '../mutations/auth-mutation-types.js'
 import { USER_REQUEST } from '../mutations/user-mutation-types.js'
+import { CLEAR_REPORT_AFTER_LOGOUT } from '../mutations/report-mutation-types.js'
 import axios from 'axios'
 
 const state = {
   token: localStorage.getItem('user-token') || '',
-  status: '',
+  status: 'logout',
   hasLoadedOnce: false
 }
 
@@ -28,6 +29,7 @@ const mutations = {
     state.hasLoadedOnce = true
   },
   [AUTH_LOGOUT] (state) {
+    state.status = 'logout'
     state.token = ''
   }
 }
@@ -57,6 +59,7 @@ const actions = {
   [AUTH_LOGOUT] ({ commit }) {
     return new Promise((resolve, reject) => {
       commit(AUTH_LOGOUT)
+      commit(CLEAR_REPORT_AFTER_LOGOUT)
       localStorage.removeItem('user-token')
       delete axios.defaults.headers.common['Authorization']
       resolve()

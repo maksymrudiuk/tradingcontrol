@@ -36,7 +36,8 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Greeting
+      component: Greeting,
+      beforeEnter: ifNotAuthenticated
     },
     {
       path: '/dashboard',

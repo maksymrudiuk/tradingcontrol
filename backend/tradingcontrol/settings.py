@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     # downloads apps
-    'django_extensions',
+    'django_extensions',  # use shell extensions
+    'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
@@ -51,7 +52,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'rest_auth.registration',
     'django_select2',
-    'corsheaders',
 
     # project apps
     'core',
@@ -165,22 +165,23 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
 
-    'DEFAULT_PERMISSION_CLASSES': [
+    'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
         'rest_framework.permissions.DjangoModelPermissions',
-    ],
+    ),
 }
 
 # Django-allauth
 # https://django-allauth.readthedocs.io/en/latest/overview.html
-AUTH_USER_MODEL = 'user.UserProfile'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+AUTH_USER_MODEL = 'user.UserProfile'  # custom user model
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Console email backend
 SITE_ID = 1
-ACCOUNT_EMAIL_VERIFICATION = None
+ACCOUNT_EMAIL_VERIFICATION = None  # eneble email verification
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
@@ -214,6 +215,8 @@ CORS_ALLOW_HEADERS = (
 )
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = (
+    'localhost:8000',
+    '127.0.0.1:8000'
     'localhost:8080',
     '127.0.0.1:8080',
     'http://192.168.0.103:8080',
@@ -221,7 +224,7 @@ CORS_ORIGIN_WHITELIST = (
 
 CSRF_COOKIE_NAME = "csrftoken"
 
-
+# JSON WEB TOKEN Settings
 JWT_AUTH = {
     'JWT_ENCODE_HANDLER':
     'rest_framework_jwt.utils.jwt_encode_handler',
@@ -246,13 +249,13 @@ JWT_AUTH = {
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_LEEWAY': 0,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),  # Token live time
     'JWT_AUDIENCE': None,
     'JWT_ISSUER': None,
 
     'JWT_ALLOW_REFRESH': False,
-    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7), # Refresh Token live time
 
-    'JWT_AUTH_HEADER_PREFIX': 'JWT',
+    'JWT_AUTH_HEADER_PREFIX': 'JWT', # Header prefix Example "Authorization: JWT <token>"
     'JWT_AUTH_COOKIE': None,
 }
