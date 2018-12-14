@@ -10,10 +10,8 @@ class UserProfile(AbstractUser):
         verbose_name_plural = _("Користувачі")
 
     ROLES = (
-        (1, 'Торговий агент'),
-        (3, 'Супервайзер'),
-        (4, 'Директор Контрагента'),
-        (5, 'Директор з продажу')
+        (1, 'Агент'),
+        (3, 'Директор'),
     )
 
     user_photo = models.ImageField(verbose_name=_('Фото'), blank=True)

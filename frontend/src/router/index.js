@@ -5,7 +5,7 @@ import Router from 'vue-router'
 import Content from '@/components/content/Content.vue'
 import Greeting from '@/components/Greeting.vue'
 import SignIn from '@/components/sign-in/Sign-in.vue'
-import Dashboard from '@/components/content/main/Dashboard-Home.vue'
+import Home from '@/components/content/main/Home.vue'
 import Goods from '@/components/content/main/Goods.vue'
 import Staff from '@/components/content/main/Staff.vue'
 import Settings from '@/components/content/main/Settings.vue'
@@ -35,9 +35,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'main',
       component: Greeting,
-      beforeEnter: ifNotAuthenticated
     },
     {
       path: '/dashboard',
@@ -47,7 +46,7 @@ export default new Router({
       children: [
         {
           path: 'home',
-          component: Dashboard
+          component: Home
         },
         {
           path: 'goods',

@@ -19,6 +19,18 @@ class ReportData(models.Model):
         verbose_name=_('Асортимент'),
         on_delete=models.CASCADE)
 
+    t_start = models.CharField(
+        verbose_name=_('Початок роботи'),
+        max_length=128)
+
+    t_finish = models.CharField(
+        verbose_name=_('Кінець роботи'),
+        max_length=128)
+
+    t_delta = models.CharField(
+        verbose_name=_('Тривалість роботи'),
+        max_length=128)
+
     owner = models.ForeignKey(
         'user.UserProfile',
         verbose_name=_('Власник'),
@@ -26,7 +38,7 @@ class ReportData(models.Model):
         on_delete=models.CASCADE)
 
     assortment_percent = models.SmallIntegerField(
-        verbose_name=_('Наявність асортименту у %'),
+        verbose_name=_('Наявність у %'),
         null=True)
 
     created_at = models.DateTimeField(_('Створений'), default=timezone.now)

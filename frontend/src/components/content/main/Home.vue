@@ -2,7 +2,7 @@
   <main role="main" class="col-lg-10 col-md-10 ml-sm-auto px-4">
     <h2 class="title">Головна</h2>
     <!-- <h4>#{{ report.name }}</h4> -->
-    <table class="table table-bordered">
+    <table class="table table-bordered table-sm">
       <thead class="thead-dark">
         <tr>
           <th scope="col">#</th>
@@ -11,16 +11,20 @@
           <th scope="col">Час закінчення</th>
           <th scope="col">Тривалість роботи</th>
           <th scope="col">Відсоток наявності товару</th>
+          <th scope="col">Власник</th>
+          <th scope="col">Cтворений</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(report, index) in getReports" :key=report.id>
           <th scope="row">{{ index+1 }}</th>
           <td>{{ report.store.name }}</td>
-          <td>9.00</td>
-          <td>9.30</td>
-          <td>30</td>
+          <td>{{ report.t_start }}</td>
+          <td>{{ report.t_finish }}</td>
+          <td>{{ report.t_delta }}</td>
           <td :class="'table-'+cellBackground(report.assortment_percent)">{{ report.assortment_percent }}</td>
+          <td>{{ report.owner.first_name }} {{ report.owner.last_name }}</td>
+          <td>{{ report.created_at.split('T').join('-/-').slice(0, 21) }}</td>
         </tr>
       </tbody>
     </table>
@@ -51,7 +55,7 @@ import BarChart from './BarChart.vue'
 import PieChart from './PieChart.vue'
 
 export default{
-  name: 'Main',
+  name: 'Home',
   components: {
     BarChart,
     PieChart
@@ -77,7 +81,6 @@ export default{
     }
   },
   mounted () {
-
   },
   beforeMount () {
     this.$store.dispatch(GET_REPORTS)

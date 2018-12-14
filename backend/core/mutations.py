@@ -8,6 +8,6 @@ def save_report_in_db(data, store_id, username):
 
     if serializer.is_valid():
         serializer.save(owner=owner, store_id=store_id)
-        return serializer.data
+        print("ok")
     else:
-        return serializer.errors
+        print(serializer.errors)

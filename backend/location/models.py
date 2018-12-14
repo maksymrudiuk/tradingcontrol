@@ -18,14 +18,14 @@ class City(models.Model):
         return '%s' % self.name
 
 
-class Area(models.Model):
+class Region(models.Model):
 
     class Meta:
         verbose_name = _('Район')
         verbose_name_plural = _('Райони')
 
     city = models.ForeignKey(
-        'City',
+        'location.City',
         related_name='city',
         verbose_name=_('Місто'),
         on_delete=models.CASCADE)
@@ -46,11 +46,13 @@ class Route(models.Model):
 
     agent = models.ForeignKey(
         'user.UserProfile',
+        related_name='agent',
         verbose_name=_('Агент'),
         on_delete=models.CASCADE)
 
-    region = models.ForeignKey(
-        'Area',
+    route_region = models.ForeignKey(
+        'location.Region',
+        related_name='route_region',
         verbose_name=_('Район'),
         on_delete=models.CASCADE)
 
@@ -59,4 +61,4 @@ class Route(models.Model):
         default=timezone.now)
 
     def __str__(self):
-        return '%s - %s' % (self.agent, self.region)
+        return '%s - %s' % (self.agent, self.route_region)

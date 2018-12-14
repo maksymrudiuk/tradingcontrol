@@ -16,7 +16,12 @@ class ReportListView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, format=None):
-        context = ReportData.objects.filter(owner=self.request.user)
+
+        if self.request.user.is_superuser:
+            context = ReportData.objects.all()
+        else:
+            context = ReportData.objects.filter(owner=self.request.user)
+
         serializer = ReportDataSerializer(context, many=True)
         return Response(serializer.data)
 

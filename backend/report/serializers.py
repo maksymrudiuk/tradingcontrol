@@ -19,7 +19,8 @@ class ReportDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReportData
         fields = ('id', 'name', 'owner', 'store',
-                  'assortment_percent', 'assortment')
+                  't_start', 't_finish', 't_delta',
+                  'assortment_percent', 'assortment', 'created_at')
 
     def create(self, validated_data):
         assortments_data = validated_data.pop('assortment')

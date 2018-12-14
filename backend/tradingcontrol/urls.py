@@ -35,6 +35,7 @@ urlpatterns = [
     path('api/v1/core/', include('core.urls')),
     path('api/v1/accounts/', include('user.urls')),
     path('api/v1/reports/', include('report.urls')),
+    path('api/v1/stores/', include('store.urls')),
 
     # Defaul path
     path('admin/', admin.site.urls),

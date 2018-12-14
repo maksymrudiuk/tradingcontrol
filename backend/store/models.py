@@ -16,6 +16,13 @@ class Store(models.Model):
         verbose_name=_('Адреса'),
         max_length=256)
 
+    store_region = models.ForeignKey(
+        'location.Region',
+        related_name='store_region',
+        verbose_name=_('Район'),
+        null=True,
+        on_delete=models.CASCADE)
+
     goods = models.ManyToManyField('goods.Goods', through='GoodsInStore')
 
     lat = models.FloatField(
