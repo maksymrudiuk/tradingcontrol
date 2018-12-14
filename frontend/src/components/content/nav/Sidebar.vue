@@ -1,5 +1,5 @@
 <template>
-  <nav class="col-lg-2 col-md-2 d-none d-lg-block d-md-block bg-light sidebar">
+  <nav class="col-lg-2 col-md-2 col-sm-1 bg-light sidebar">
     <div class="sidebar-sticky">
       <!--
       <div class="about-user">

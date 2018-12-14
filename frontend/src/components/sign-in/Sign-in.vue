@@ -1,6 +1,6 @@
 <template>
   <div class="center-inside">
-    <form class="sign-in-form" @submit.prevent="login">
+    <form class="sign-in-form col-lg-4 offset-lg-4 col-md-4 offset-md-4 col-sm-8 offset-sm-2" @submit.prevent="login">
       <h3>Login</h3>
       <div v-if="isError" class="alert alert-danger" role="alert">
         Помилка аутентифікації
@@ -61,7 +61,7 @@ export default {
 
 .sign-in-form {
   width: 100%;
-  max-width: 30%;
+  /* max-width: 30%; */
   margin: auto;
   padding: 20px;
 }

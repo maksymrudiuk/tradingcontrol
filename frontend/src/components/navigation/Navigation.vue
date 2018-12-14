@@ -18,7 +18,7 @@
             <li v-if="isAuthenticated" @click="logout" class="nav-item active nav-tip">
               <span class="nav-link">Вийти</span>
             </li>
-            <li v-if="!isAuthenticated && !authLoading" class="nav-item active nav-tip">
+            <li v-if="!isAuthenticated && !authLoading && !isLoginPage" class="nav-item active nav-tip">
               <router-link to="/sign-in" class="nav-link">Увійти</router-link>
             </li>
           </ul>
@@ -45,13 +45,16 @@ export default {
       this.$store.dispatch(AUTH_LOGOUT).then(() => {
         this.$router.push('/sign-in')
       })
-    }
+    },
   },
   computed: {
     ...mapGetters(['getProfile', 'isAuthenticated', 'isProfileLoaded']),
     ...mapState({
-      authLoading: state => state.auth.status === 'loading'
-    })
+      authLoading: state => state.auth.status === 'loading',
+    }),
+    isLoginPage: function () {
+      return this.$route.path === '/sign-in'
+    }
   },
   beforeMount () {
     if (this.isAuthenticated) { this.$store.dispatch(USER_REQUEST) }
