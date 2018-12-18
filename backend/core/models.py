@@ -9,7 +9,9 @@ class UploadPhoto(models.Model):
         verbose_name = _('Завантажене фото')
         verbose_name_plural = _('Завантажені фото')
 
-    file = models.ImageField(_('Файл'))
+    file = models.ImageField(
+        _('Файл'),
+        upload_to='uploads/')
 
     owner = models.ForeignKey(
         'user.UserProfile',
@@ -17,5 +19,19 @@ class UploadPhoto(models.Model):
         null=True,
         blank=True,
         on_delete=models.CASCADE)
+
+    store = models.ForeignKey(
+        'store.Store',
+        verbose_name=_('Торгова точка'),
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE)
+
+    report = models.ForeignKey(
+        'report.ReportData',
+        verbose_name=_('Звіт'),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL)
 
     created_at = models.DateTimeField(_('Завантажено'), default=timezone.now)

@@ -44,6 +44,7 @@ def detect(uploadphoto_list, store_id):
         positiv = 0
 
         for file in uploadphoto_list:
+
             for item in goods:
 
                 if is_it_processed(found_list, item.goods.name):
@@ -72,4 +73,4 @@ def detect(uploadphoto_list, store_id):
         return data
 
     else:
-        return 'some error in processing'
+        return False

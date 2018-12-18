@@ -26,7 +26,9 @@ class Goods(models.Model):
         verbose_name=_('Назва'),
         max_length=256)
 
-    image = models.ImageField(_('Зображення'))
+    image = models.ImageField(
+        _('Зображення'),
+        upload_to='goods/')
 
     bar_code = models.CharField(
         verbose_name=_('Штрих Код'),

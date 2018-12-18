@@ -42,6 +42,14 @@ class UserProfile(AbstractUser):
     def admin_list_display(self):
         return self._get_short_name()
 
+    @property
+    def isDirector(self):
+        return self.role == 3
+
+    @property
+    def isAgent(self):
+        return self.role == 1
+
     def get_short_name(self):
         return self.username
 
