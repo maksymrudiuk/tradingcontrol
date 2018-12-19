@@ -1,46 +1,74 @@
 <template>
   <nav class="col-lg-2 col-md-2 col-sm-1 bg-light sidebar">
     <div class="sidebar-sticky">
-      <!--
-      <div class="about-user">
-        <div class="user-photo">
-          <img src="./img/user.png" alt="UserPhoto" class="mx-auto" width="100px" height="100px">
-        </div>
-        <div class="user-info mx-auto">
-          <p class="user-info-item"><span>{{ user.first_name }}</span></p>
-          <p class="user-info-item"><span>{{ user.last_name }}</span></p>
-        </div>
-        </div>-->
       <ul class="nav flex-column">
         <li class="nav-item">
-          <router-link to="/dashboard/home" class="nav-link">Головна</router-link>
+          <router-link to="/dashboard/home" class="nav-link">
+            <span class="link-icon"><img :src="`${baseUrl}static/home.svg`" alt="" width="20" height="20"></span>
+            Головна
+          </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/dashboard/goods" class="nav-link">Товари</router-link>
+          <router-link to="/dashboard/goods" class="nav-link" v-if="isDirector">
+            <span class="link-icon"><img :src="`${baseUrl}static/icecream.svg`" alt="" width="20" height="20"></span>Товари
+          </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/dashboard/staff" class="nav-link">Персонал</router-link>
+          <router-link to="/dashboard/staff" class="nav-link" v-if="isDirector">
+            <span class="link-icon"><img :src="`${baseUrl}static/staff.svg`" alt="" width="20" height="20"></span>
+            Персонал
+          </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/dashboard/reports" class="nav-link">Звіти</router-link>
+          <router-link to="/dashboard/reports" class="nav-link">
+            <span class="link-icon"><img :src="`${baseUrl}static/analysis.svg`" alt="" width="20" height="20"></span>
+            Звіти
+          </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/dashboard/settings" class="nav-link">Налаштування</router-link>
+          <router-link to="/dashboard/settings" class="nav-link">
+            <span class="link-icon"><img :src="`${baseUrl}static/controls.svg`" alt="" width="20" height="20"></span>Налаштування
+          </router-link>
+        </li>
+        <li v-if="isAuthenticated" @click="showModal = true" class="nav-link">
+          <span class="link-icon"><img :src="`${baseUrl}static/logout.svg`" alt="" width="20" height="20"></span>
+          <span class="logout">Вийти</span>
         </li>
       </ul>
     </div>
+    <modal v-if="showModal" @close="showModal = false"></modal>
   </nav>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import ExitConfirm from '../modal/Modal.vue'
 
 export default {
-  name: 'Sidebar'
+  name: 'Sidebar',
+  data () {
+    return {
+      showModal: false,
+      baseUrl: process.env.BASE_URL
+    }
+  },
+  components: {
+    modal: ExitConfirm
+  },
+  methods: {
+  },
+  computed: {
+    ...mapGetters(['isDirector', 'isAuthenticated'])
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.link-icon {
+  margin-left: 10px;
+  margin-right: 10px;
+}
 
 .sidebar {
   position: fixed;
@@ -48,15 +76,15 @@ export default {
   bottom: 0;
   left: 0;
   z-index: 100;
-  padding: 56px 0 0;
-  margin-bottom: 40px;
+  padding: 56px 0 56px;
+  height: 100vh;
 }
 
 .sidebar-sticky {
   position: webkit-sticky;
   position: sticky;
   top: 0;
-  height: calc(100vh - 56px);
+  height: 100%;
   padding-top: .5em;
   overflow-x: hidden;
   overflow-y: auto;
@@ -70,6 +98,8 @@ export default {
   text-align: left!important;
   padding-left: 3em;
   color: black;
+  cursor: pointer!important;
+  font-size: 1em;
 }
 
 .about-user {

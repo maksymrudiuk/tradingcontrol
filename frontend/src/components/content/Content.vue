@@ -24,3 +24,10 @@ export default {
   min-height: calc(100vh - 96px);
 }
 </style>
+
+<style>
+.title {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+</style>

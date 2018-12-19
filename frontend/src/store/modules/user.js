@@ -1,15 +1,18 @@
 import { User } from '@/api/user'
-import { USER_REQUEST, USER_ERROR, USER_SUCCESS } from '../mutations/user-mutation-types.js'
+import { USER_REQUEST, USER_ERROR, USER_SUCCESS, GET_STAFF, SET_STAFF_TO_NULL } from '../mutations/user-mutation-types.js'
 import { AUTH_LOGOUT } from '../mutations/auth-mutation-types.js'
 
 const state = {
   profile: {},
-  status: 'logout'
+  status: 'logout',
+  staff: []
 }
 
 const getters = {
+  getStaff: state => state.staff,
   getProfile: state => state.profile,
-  isProfileLoaded: state => !!state.profile.username
+  isProfileLoaded: state => !!state.profile.username,
+  isDirector: state => state.profile.role === 'Директор'
 }
 
 const mutations = {
@@ -26,6 +29,12 @@ const mutations = {
   [AUTH_LOGOUT] (state) {
     state.profile = {}
     state.status = 'logout'
+  },
+  [GET_STAFF] (state, response) {
+    state.staff = response
+  },
+  [SET_STAFF_TO_NULL] (state) {
+    state.staff = []
   }
 }
 
@@ -39,6 +48,15 @@ const actions = {
       .catch(resp => {
         commit(USER_ERROR)
         dispatch(AUTH_LOGOUT)
+      })
+  },
+  [GET_STAFF] ({ commit }) {
+    User.getMyStaff()
+      .then(response => {
+        commit(GET_STAFF, response)
+      })
+      .catch(resp => {
+        commit(SET_STAFF_TO_NULL)
       })
   }
 }

@@ -51,8 +51,8 @@ import { mapGetters } from 'vuex'
 import { GET_REPORTS } from '@/store/mutations/report-mutation-types.js'
 import barChartOptions from '@/chart/bar.js'
 import pieChartOptions from '@/chart/pie.js'
-import BarChart from './BarChart.vue'
-import PieChart from './PieChart.vue'
+import BarChart from './charts/BarChart.vue'
+import PieChart from './charts/PieChart.vue'
 
 export default{
   name: 'Home',
@@ -90,11 +90,6 @@ export default{
 </script>
 
 <style scoped>
-
-.title {
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
 
 .action-items {
 

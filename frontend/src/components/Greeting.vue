@@ -27,12 +27,13 @@
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul> -->
     <h1>It`s a not public app!</h1>
+    <router-link to="/dashboard/home" class="nav-link">Головна</router-link>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Greeting',
+  name: 'Greeting'
 }
 </script>
 

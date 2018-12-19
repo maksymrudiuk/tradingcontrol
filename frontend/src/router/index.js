@@ -36,7 +36,7 @@ export default new Router({
     {
       path: '/',
       name: 'main',
-      component: Greeting,
+      component: Greeting
     },
     {
       path: '/dashboard',

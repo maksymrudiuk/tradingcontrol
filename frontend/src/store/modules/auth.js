@@ -1,6 +1,6 @@
 import { Auth } from '@/api/auth'
 import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_ERROR, AUTH_LOGOUT } from '../mutations/auth-mutation-types.js'
-import { USER_REQUEST } from '../mutations/user-mutation-types.js'
+import { USER_REQUEST, SET_STAFF_TO_NULL } from '../mutations/user-mutation-types.js'
 import { CLEAR_REPORT_AFTER_LOGOUT } from '../mutations/report-mutation-types.js'
 import axios from 'axios'
 
@@ -60,6 +60,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       commit(AUTH_LOGOUT)
       commit(CLEAR_REPORT_AFTER_LOGOUT)
+      commit(SET_STAFF_TO_NULL)
       localStorage.removeItem('user-token')
       delete axios.defaults.headers.common['Authorization']
       resolve()

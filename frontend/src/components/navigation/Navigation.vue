@@ -7,17 +7,11 @@
         <div class="col-lg-2">
           <router-link to="/" class="navbar-brand nav-logo">Trading Control</router-link>
         </div>
-        <div class="col-lg-2 offset-lg-3 active-user">
-          <p v-if="isProfileLoaded && isAuthenticated" class="username">Доброго дня&nbsp;&nbsp;<strong>{{ getProfile.username }}</strong></p>
+        <div class="col-lg-3 offset-lg-3 active-user">
+          <p v-if="isProfileLoaded && isAuthenticated" class="username">Доброго дня,&nbsp;&nbsp;<strong>{{ getProfile.first_name }}</strong></p>
         </div>
-        <div class="col-lg-2 offset-lg-3 tabs">
+        <div class="col-lg-2 offset-lg-2 tabs">
           <ul class="navbar-nav navbar-tips">
-            <li v-if="isAuthenticated" class="nav-item active nav-tip">
-              <router-link to="/dashboard/home" class="nav-link">Головна</router-link>
-            </li>
-            <li v-if="isAuthenticated" @click="logout" class="nav-item active nav-tip">
-              <span class="nav-link">Вийти</span>
-            </li>
             <li v-if="!isAuthenticated && !authLoading && !isLoginPage" class="nav-item active nav-tip">
               <router-link to="/sign-in" class="nav-link">Увійти</router-link>
             </li>
@@ -30,27 +24,18 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
-import { AUTH_LOGOUT } from '@/store/mutations/auth-mutation-types.js'
 import { USER_REQUEST } from '@/store/mutations/user-mutation-types.js'
 
 export default {
   name: 'Navigation',
   data () {
     return {
-      // isAuthenticated: this.$store.getters.isAuthenticated
     }
-  },
-  methods: {
-    logout: function () {
-      this.$store.dispatch(AUTH_LOGOUT).then(() => {
-        this.$router.push('/sign-in')
-      })
-    },
   },
   computed: {
     ...mapGetters(['getProfile', 'isAuthenticated', 'isProfileLoaded']),
     ...mapState({
-      authLoading: state => state.auth.status === 'loading',
+      authLoading: state => state.auth.status === 'loading'
     }),
     isLoginPage: function () {
       return this.$route.path === '/sign-in'

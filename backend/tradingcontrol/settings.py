@@ -251,7 +251,7 @@ JWT_AUTH = {
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_LEEWAY': 0,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),  # Token live time
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),  # Token live time
     'JWT_AUDIENCE': None,
     'JWT_ISSUER': None,
 

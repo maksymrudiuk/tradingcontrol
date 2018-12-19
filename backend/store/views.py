@@ -12,45 +12,29 @@ from rest_framework import viewsets
 
 # Create your views here.
 
-
-class StoreList(APIView):
-
-    authentication_classes = (JSONWebTokenAuthentication,
-                              SessionAuthentication)
-    permission_classes = (IsAuthenticated,)
-
-    def get(self, request, format=None):
-
-        try:
-            route = Route.objects.get(agent=self.request.user)
-            store = Store.objects.filter(store_region=route.route_region)
-            serializer = StoreSerializer(store, many=True)
-            return Response(serializer.data)
-        except Exception:
-            response = JsonResponse(
-                {'error': 'routes doesn`t exist'},
-                safe=False)
-            return Response(response.content)
-
-
 class StoreViewSet(viewsets.ViewSet):
 
     authentication_classes = (JSONWebTokenAuthentication,
                               SessionAuthentication)
     permission_classes = (IsAuthenticated,)
 
-    def list(self, request, format=None):
+    # def list(self, request, format=None):
 
-        try:
-            route = Route.objects.get(agent=self.request.user)
-            store = Store.objects.filter(store_region=route.route_region)
-            serializer = StoreSerializer(store, many=True)
-            return Response(serializer.data)
-        except Exception:
-            response = JsonResponse(
-                {'error': 'routes doesn`t exist'},
-                safe=False)
-            return Response(response.content)
+    #     try:
+    #         route = Route.objects.get(agent=self.request.user)
+    #         store = Store.objects.filter(store_region=route.route_region)
+    #         serializer = StoreSerializer(store, many=True)
+    #         return Response(serializer.data)
+    #     except Exception:
+    #         response = JsonResponse(
+    #             {'error': 'routes doesn`t exist'},
+    #             safe=False)
+    #         return Response(response.content)
+
+    def list(self, request, format=None):
+        store = Store.objects.all()
+        serializer = StoreSerializer(store, many=True)
+        return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
         queryset = Store.objects.all()

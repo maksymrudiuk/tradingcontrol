@@ -1,6 +1,7 @@
 <template>
   <main role="main" class="col-lg-10 col-md-10 ml-sm-auto px-4">
-    <h1>Goods</h1>
+    <h2 class="title">Товари</h2>
+    <p>Секція в розробці</p>
   </main>
 </template>
 
@@ -12,10 +13,10 @@ export default{
 
 <style scoped>
 
-.title {
+/* .title {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
-}
+} */
 
 .action-items {
 

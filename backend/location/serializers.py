@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Region, City, Route
-from user.serializers import UserProfileSerializer
+# from user.serializers import UserProfileSerializer
 
 
 class CitySerializer(serializers.ModelSerializer):
@@ -21,9 +21,9 @@ class RegionSerializer(serializers.ModelSerializer):
 
 class RouteSerializer(serializers.ModelSerializer):
 
-    agent = UserProfileSerializer()
+    # agent = UserProfileSerializer()
     route_region = RegionSerializer()
 
     class Meta:
         model = Route
-        fields = ('agent', 'region', 'created')
+        fields = ('region', 'created')
