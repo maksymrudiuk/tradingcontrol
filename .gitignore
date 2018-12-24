@@ -74,3 +74,10 @@ docs/_build/
 # db
 *.sqlite3
 db.py
+
+media/
+static/
+.ipynb_checkpoints/
+urls-map
+test_users.txt
+
