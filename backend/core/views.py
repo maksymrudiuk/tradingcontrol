@@ -24,6 +24,8 @@ class Upload(APIView):
 
     def post(self, request, format=None):
 
+        print(self.request.data)
+
         response = JsonResponse(
             {'error': 'user don`t have routes'},
             safe=False)
@@ -36,9 +38,7 @@ class Upload(APIView):
             errors = []
             upload_photos = []
 
-            # print(self.request.data.getlist('files'))
-
-            # store_id = 1  # must be dynamic value
+            # parse data
             store_id = self.request.data['store_id']
 
             time_data = {}
@@ -48,7 +48,7 @@ class Upload(APIView):
 
             for file in self.request.data.getlist('files'):
 
-                data = {'file': file}
+                data = {'file': file, 'store_id': store_id}
                 serializer = UploadPhotoSerializer(data=data)
 
                 if serializer.is_valid():

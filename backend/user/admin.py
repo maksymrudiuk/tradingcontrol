@@ -4,6 +4,12 @@ from .models import UserProfile
 from django.utils.translation import gettext_lazy as _
 
 
+class UsersInline(admin.TabularInline):
+    model = UserProfile
+    fields = ('username', 'role')
+    extra = 0
+
+
 class UserProfileAdmin(UserAdmin):
     fieldsets = (
         (None,

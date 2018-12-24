@@ -1,7 +1,20 @@
 <template>
   <main role="main" class="col-lg-10 col-md-10 ml-sm-auto px-4">
     <h2 class="title">Головна</h2>
-    <!-- <h4>#{{ report.name }}</h4> -->
+    <div class="chart">
+      <bar-chart
+        :chartdata='getBarDatacollection'
+        :options='barOptions'
+        :height='600'>
+      </bar-chart>
+    </div>
+    <div class="chart">
+      <pie-chart
+        :chartdata='getPieDatacollection'
+        :options='pieOptions'
+        :height='400'>
+      </pie-chart>
+    </div>
     <table class="table table-bordered table-sm">
       <thead class="thead-dark">
         <tr>
@@ -28,21 +41,6 @@
         </tr>
       </tbody>
     </table>
-    <!-- <p>{{ getBarDatacollection }}</p> -->
-    <div class="chart">
-      <bar-chart
-        :chartdata='getBarDatacollection'
-        :options='barOptions'
-        :height='600'>
-      </bar-chart>
-    </div>
-    <div class="chart">
-      <pie-chart
-        :chartdata='getPieDatacollection'
-        :options='pieOptions'
-        :height='400'>
-      </pie-chart>
-    </div>
   </main>
 </template>
 
