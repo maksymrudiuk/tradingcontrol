@@ -1,6 +1,6 @@
 <template>
   <div class="map-container">
-    <div class="map-filter">
+<!--     <div class="map-filter">
       <h3>Фільтр</h3>
       <date-picker
         placeholder="Оберіть бажану дату"
@@ -18,7 +18,7 @@
         </option>
       </select>
       <button type="button" class="btn btn-primary filter-item" @click="markerFilter()">Пошук</button>
-    </div>
+    </div> -->
     <gmap-map
       :center="center"
       :zoom="zoom"
