@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <Navigation></Navigation>
+    <MyHeader></MyHeader>
     <router-view></router-view>
     <MyFooter></MyFooter>
   </div>
 </template>
 
 <script>
-import Navigation from './components/navigation/Navigation.vue'
+import Header from './components/header/Header.vue'
 import Footer from './components/footer/Footer.vue'
 import axios from 'axios'
 import { AUTH_LOGOUT } from '@/store/mutations/auth-mutation-types.js'
@@ -15,7 +15,7 @@ import { AUTH_LOGOUT } from '@/store/mutations/auth-mutation-types.js'
 export default {
   name: 'app',
   components: {
-    Navigation,
+    'MyHeader': Header,
     'MyFooter': Footer
   },
   created: function () {

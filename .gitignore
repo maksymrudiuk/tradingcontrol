@@ -1,8 +1,9 @@
+# Frontend builds and modules
 .DS_Store
 node_modules
 /dist
 
-# local env files
+# Local env files
 .env.local
 .env.*.local
 
@@ -73,11 +74,19 @@ docs/_build/
 
 # db
 *.sqlite3
-db.py
+db.json
 
+# Media and compile staticfiles
 media/
 static/
+
+# IPython shell notebook
 .ipynb_checkpoints/
+*.ipynb
+
+# Some project help files
 urls-map
 test_users.txt
 
+# Dev requirements
+req_dev.txt

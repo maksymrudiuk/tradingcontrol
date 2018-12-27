@@ -27,7 +27,7 @@ import { mapGetters, mapState } from 'vuex'
 import { USER_REQUEST } from '@/store/mutations/user-mutation-types.js'
 
 export default {
-  name: 'Navigation',
+  name: 'Header',
   data () {
     return {
     }
@@ -80,7 +80,6 @@ export default {
 }
 
 .nav-tip:hover {
-  /* text-decoration: underline; */
   border-bottom: 1px solid white;
 }
 

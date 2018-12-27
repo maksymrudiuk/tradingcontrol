@@ -6,7 +6,7 @@ import axios from 'axios'
 
 const state = {
   token: localStorage.getItem('user-token') || '',
-  status: 'logout',
+  status: 'wait',
   hasLoadedOnce: false
 }
 
@@ -42,9 +42,7 @@ const actions = {
         .then(response => {
           const token = response.data.token
           localStorage.setItem('user-token', token)
-          // console.log('before' + token)
-          axios.defaults.headers.common['Authorization'] = 'JWT ' + token
-          // console.log('after' + token)
+          axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
           commit(AUTH_SUCCESS, token)
           dispatch(USER_REQUEST)
           resolve(response)

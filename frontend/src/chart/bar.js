@@ -13,7 +13,6 @@ export const barChartOptions = {
       maxBarThickness: 100,
       categoryPercentage: 0.95,
       barPercentage: 0.95,
-      // barThickness: 'flex',
       ticks: {
         padding: 15
       },

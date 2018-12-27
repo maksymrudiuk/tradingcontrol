@@ -1,10 +1,9 @@
 import { Report } from '@/api/report'
 import { GET_REPORTS, GET_REPORT_SUCCESS, GET_REPORT_ERROR, CLEAR_REPORT_AFTER_LOGOUT } from '../mutations/report-mutation-types.js'
-// import barChartData from '@/chart/bar.js'
 
 const state = {
   reports: [],
-  status: 'logout' // Report for one selected user
+  status: 'logout'
 }
 
 const getters = {
@@ -56,6 +55,17 @@ const getters = {
     data.push(100 - positive)
     datacollection.datasets[0]['data'] = data
     return datacollection
+  },
+  getStoreMarkers: state => {
+    const markers = []
+    for (let item in state.reports) {
+      const position = {}
+      const title = state.reports[item].store.name
+      position['lat'] = state.reports[item].store.lat
+      position['lng'] = state.reports[item].store.lon
+      markers.push({ position, title })
+    }
+    return markers
   }
 }
 
@@ -77,10 +87,10 @@ const mutations = {
 }
 
 const actions = {
-  [GET_REPORTS] ({ commit }) {
+  [GET_REPORTS] ({ commit }, days) {
     return new Promise((resolve, reject) => {
       commit(GET_REPORTS)
-      Report.getReports()
+      Report.getReports(days)
         .then(response => {
           commit(GET_REPORT_SUCCESS, response)
           resolve(response)

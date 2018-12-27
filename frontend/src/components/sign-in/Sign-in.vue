@@ -61,7 +61,6 @@ export default {
 
 .sign-in-form {
   width: 100%;
-  /* max-width: 30%; */
   margin: auto;
   padding: 20px;
 }

@@ -42,9 +42,9 @@ class Upload(APIView):
             store_id = self.request.data['store_id']
 
             time_data = {}
-            time_data['t_start'] = self.request.data['t_start']
-            time_data['t_finish'] = self.request.data['t_finish']
-            time_data['t_delta'] = self.request.data['t_delta']
+            time_data['t_start'] = self.request.data['t_start'][1:16]
+            time_data['t_finish'] = self.request.data['t_finish'][1:16]
+            time_data['t_delta'] = self.request.data['t_delta'][1:5]
 
             for file in self.request.data.getlist('files'):
 

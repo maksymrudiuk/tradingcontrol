@@ -116,5 +116,4 @@ export default {
   padding: .25em;
   margin: 0;
 }
-
 </style>

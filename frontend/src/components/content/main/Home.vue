@@ -1,6 +1,13 @@
 <template>
   <main role="main" class="col-lg-10 col-md-10 ml-sm-auto px-4">
     <h2 class="title">Головна</h2>
+    <div class="btn-group" role="group" aria-label="Report Data Range">
+      <button type="button" class="btn btn-secondary" @click="changeReportsDateRange(1, '1 день')">1 день</button>
+      <button type="button" class="btn btn-secondary" @click="changeReportsDateRange(7, '1 тиждень')">1 тиждень</button>
+      <button type="button" class="btn btn-secondary" @click="changeReportsDateRange(14, '2 тижні')">2 тижні</button>
+      <button type="button" class="btn btn-secondary" @click="changeReportsDateRange(32 , '4 тижні')">4 тижні</button>
+    </div>
+    <p>Звіти за {{ daysStrRange }}</p>
     <div class="chart">
       <bar-chart
         :chartdata='getBarDatacollection'
@@ -41,6 +48,7 @@
         </tr>
       </tbody>
     </table>
+    <google-map></google-map>
   </main>
 </template>
 
@@ -51,17 +59,21 @@ import barChartOptions from '@/chart/bar.js'
 import pieChartOptions from '@/chart/pie.js'
 import BarChart from './charts/BarChart.vue'
 import PieChart from './charts/PieChart.vue'
+import GoogleMap from './map/GoogleMap.vue'
 
 export default{
   name: 'Home',
   components: {
     BarChart,
-    PieChart
+    PieChart,
+    'google-map': GoogleMap
   },
   data () {
     return {
       barOptions: barChartOptions,
-      pieOptions: pieChartOptions
+      pieOptions: pieChartOptions,
+      daysIntRange: 14,
+      daysStrRange: '2 тижні'
     }
   },
   computed: {
@@ -76,19 +88,23 @@ export default{
       } else {
         return 'danger'
       }
+    },
+    changeReportsDateRange: function (value, name) {
+      this.daysRange = value
+      this.daysStrRange = name
+      this.$store.dispatch(GET_REPORTS, this.daysRange)
     }
   },
   mounted () {
   },
   beforeMount () {
-    this.$store.dispatch(GET_REPORTS)
+    this.$store.dispatch(GET_REPORTS, this.daysRange)
   }
 }
 
 </script>
 
 <style scoped>
-
 .action-items {
 
 }
