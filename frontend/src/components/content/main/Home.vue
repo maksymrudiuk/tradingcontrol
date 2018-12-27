@@ -90,15 +90,15 @@ export default{
       }
     },
     changeReportsDateRange: function (value, name) {
-      this.daysRange = value
+      this.daysIntRange = value
       this.daysStrRange = name
-      this.$store.dispatch(GET_REPORTS, this.daysRange)
+      this.$store.dispatch(GET_REPORTS, this.daysIntRange)
     }
   },
   mounted () {
   },
   beforeMount () {
-    this.$store.dispatch(GET_REPORTS, this.daysRange)
+    this.$store.dispatch(GET_REPORTS, this.daysIntRange)
   }
 }
 
