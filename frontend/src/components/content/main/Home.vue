@@ -2,12 +2,16 @@
   <main role="main" class="col-lg-10 col-md-10 ml-sm-auto px-4">
     <h2 class="title">Головна</h2>
     <div class="btn-group" role="group" aria-label="Report Data Range">
-      <button type="button" class="btn btn-secondary" @click="changeReportsDateRange(1, '1 день')">1 день</button>
-      <button type="button" class="btn btn-secondary" @click="changeReportsDateRange(7, '1 тиждень')">1 тиждень</button>
-      <button type="button" class="btn btn-secondary" @click="changeReportsDateRange(14, '2 тижні')">2 тижні</button>
-      <button type="button" class="btn btn-secondary" @click="changeReportsDateRange(32 , '4 тижні')">4 тижні</button>
+      <button
+        v-for="(item, index) in daysButtons"
+        :key="index"
+        type="button"
+        class="btn btn-light"
+        @click="changeReportsDateRange(item.button.value, item.button.name)">
+        {{ item.button.name }}
+      </button>
     </div>
-    <p>Звіти за {{ daysStrRange }}</p>
+    <p>Звіти за {{ selectedDayRange.name }}</p>
     <div class="chart">
       <bar-chart
         :chartdata='getBarDatacollection'
@@ -61,24 +65,51 @@ import BarChart from './charts/BarChart.vue'
 import PieChart from './charts/PieChart.vue'
 import GoogleMap from './map/GoogleMap.vue'
 
-export default{
+export default {
   name: 'Home',
+
   components: {
     BarChart,
     PieChart,
     'google-map': GoogleMap
   },
+
   data () {
     return {
       barOptions: barChartOptions,
       pieOptions: pieChartOptions,
-      daysIntRange: 14,
-      daysStrRange: '2 тижні'
+      daysButtons: [{
+        button: {
+          name: '1 день',
+          value: 1
+        }
+      }, {
+        button: {
+          name: '1 тиждень',
+          value: 7
+        }
+      }, {
+        button: {
+          name: '2 тижні',
+          value: 14
+        }
+      }, {
+        button: {
+          name: '1 місяць',
+          value: 31
+        }
+      }],
+      selectedDayRange: {
+        name: '2 тижні',
+        value: 14
+      }
     }
   },
+
   computed: {
     ...mapGetters(['reportStatus', 'getReports', 'getBarDatacollection', 'getPieDatacollection'])
   },
+
   methods: {
     cellBackground: function (value) {
       if (value >= 70) {
@@ -90,15 +121,16 @@ export default{
       }
     },
     changeReportsDateRange: function (value, name) {
-      this.daysIntRange = value
-      this.daysStrRange = name
-      this.$store.dispatch(GET_REPORTS, this.daysIntRange)
+      // Set selected value to display
+      this.selectedDayRange.name = name
+      this.selectedDayRange.value = value
+      // Send request again with new params
+      this.$store.dispatch(GET_REPORTS, value)
     }
   },
-  mounted () {
-  },
+
   beforeMount () {
-    this.$store.dispatch(GET_REPORTS, this.daysIntRange)
+    this.$store.dispatch(GET_REPORTS, this.selectedDayRange.value)
   }
 }
 
@@ -129,5 +161,12 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0
+}
+
+.btn:focus,
+.btn-secondary,
+.btn-light {
+  outline: none!important;
+  box-shadow: none!important;
 }
 </style>
