@@ -1,24 +1,37 @@
 <template>
   <div class="map-container">
-<!--     <div class="map-filter">
-      <h3>Фільтр</h3>
-      <date-picker
-        placeholder="Оберіть бажану дату"
-        class="date-picker filter-item"
-        :language="uk"
-        v-model="selectedDate">
-      </date-picker>
-      <select v-if="isDirector" name="staff" id="staff" v-model="agent">
-        <option value="0" disabled selected>--Оберіть агента--</option>
-        <option
-          v-for="(agent, index) in getStaff"
-          :key="index"
-          :value="agent.username">
-          {{ agent.first_name }}{{ agent.last_name }}
-        </option>
-      </select>
-      <button type="button" class="btn btn-primary filter-item" @click="markerFilter()">Пошук</button>
-    </div> -->
+    <div class="map-filter">
+      <div class="row">
+        <div class="col-lg-12"><h3>Фільтр</h3></div>
+      </div>
+      <div class="row">
+        <form class="form-inline">
+          <button
+            type="button"
+            class="btn btn-warning filter-item"
+            @click="setFullDateRange()">
+            За {{ dateRange.name }}
+          </button>
+          <date-picker
+            placeholder="Оберіть бажану дату"
+            class="date-picker filter-item"
+            :language="uk"
+            :disabledDates="disabledDates"
+            v-model="selectedDate">
+          </date-picker>
+          <select v-if="isDirector" name="staff" id="staff" v-model="agent" class="form-control">
+            <option value="" disabled selected>--Оберіть агента--</option>
+            <option :value="'__all__'">Всі агенти</option>
+            <option
+              v-for="(agent, index) in getStaff"
+              :key="index"
+              :value="agent.username">
+              {{ agent.first_name }}&nbsp;{{ agent.last_name }}
+            </option>
+          </select>
+        </form>
+      </div>
+    </div>
     <gmap-map
       :center="center"
       :zoom="zoom"
@@ -39,6 +52,7 @@ import { mapGetters } from 'vuex'
 import Datepicker from 'vuejs-datepicker'
 import { en, uk } from 'vuejs-datepicker/dist/locale'
 import { GET_STAFF } from '@/store/mutations/user-mutation-types.js'
+import moment from 'moment'
 
 export default {
   name: 'GoogleMap',
@@ -47,51 +61,84 @@ export default {
     'date-picker': Datepicker
   },
 
+  props: ['dateRange'],
+
   data () {
     return {
-      // change this to whatever makes sense
+      // Map data
       center: { lat: 50.4238844, lng: 30.5655873 },
       zoom: 10,
       en: en,
       uk: uk,
-      selectedDate: null,
-      agent: null,
+      selectedDate: '__all__',
+      // Agent selection
+      agent: '__all__'
     }
   },
 
   computed: {
     ...mapGetters(['getStaff', 'getReports', 'isDirector']),
+    disabledDates: function () {
+      const disabledDates = {}
+      let timeAgo = moment().subtract(this.dateRange.value, 'days').format()
+      disabledDates['to'] = new Date(timeAgo)
+      disabledDates['from'] = new Date()
+      return disabledDates
+    },
     markers: function () {
       const markers = []
       const reports = this.getReports
-      for (var item in reports) {
-        const position = {}
-        const title = reports[item].store.name
-        const owner = reports[item].owner.username
-        const date = reports[item].created_at
-        position['lat'] = reports[item].store.lat
-        position['lng'] = reports[item].store.lon
-        markers.push({ position, title, owner, date })
+      if (this.selectedDate && this.agent) {
+        for (let item in reports) {
+          const position = {}
+          const title = reports[item].store.name
+          const owner = reports[item].owner.username
+          const date = reports[item].created_at.split('T')[0]
+          position['lat'] = reports[item].store.lat
+          position['lng'] = reports[item].store.lon
+          markers.push({ position, title, owner, date })
+        }
       }
-      return markers
+      var result = this.byAgent(markers, this.agent)
+      result = this.byDate(result, this.selectedDate)
+      return result
     }
   },
 
   methods: {
     // receives a place object via the autocomplete component
-    setPlace (place) {
-      this.currentPlace = place
+    setFullDateRange () {
+      this.selectedDate = '__all__'
     },
-    addMarker () {
-      if (this.currentPlace) {
-        const marker = {
-          lat: this.currentPlace.geometry.location.lat(),
-          lng: this.currentPlace.geometry.location.lng()
+    dateFormatter (date) {
+      return moment(date).format('YYYY-MM-DD')
+    },
+    byDate (markers, date) {
+      const result = []
+      if (date === '__all__') {
+        return markers
+      } else {
+        for (let m in markers) {
+          if (this.dateFormatter(date) === markers[m].date) {
+            result.push(markers[m])
+          }
         }
-        this.markers.push({ position: marker })
-        this.places.push(this.currentPlace)
-        this.center = marker
-        this.currentPlace = null
+        // console.log(result)
+        return result
+      }
+    },
+    byAgent (markers, agent) {
+      const result = []
+      if (agent === '__all__') {
+        return markers
+      } else {
+        for (let m in markers) {
+          if (agent === markers[m].owner) {
+            result.push(markers[m])
+          }
+        }
+        // console.log(result)
+        return result
       }
     },
     geolocate: function () {
@@ -131,5 +178,10 @@ export default {
 .filter-item {
   margin-left: 1em;
   margin-right: 1em;
+}
+
+.btn:focus {
+  outline: none!important;
+  box-shadow: none!important;
 }
 </style>

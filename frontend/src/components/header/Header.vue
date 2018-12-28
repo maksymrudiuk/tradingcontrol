@@ -1,16 +1,16 @@
 <template>
-  <nav class="navbar navbar-light navbar-expand-lg sticky-top" style="background-color: #292D32;">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-    </button>
+  <nav class="navbar navbar-light sticky-top navbar-expand-sm" style="background-color: #292D32;">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
       <div class="row collapse navbar-collapse" id="navbarText">
-        <div class="col-lg-2">
+        <div class="col-lg-2 col-md-3 col-sm-3">
           <router-link to="/" class="navbar-brand nav-logo">Trading Control</router-link>
         </div>
-        <div class="col-lg-3 offset-lg-3 active-user">
+        <div class="col-lg-3 offset-lg-3 col-md-3 offset-md-3 col-sm-4 offset-sm-1 active-user">
           <p v-if="isProfileLoaded && isAuthenticated" class="username">Доброго дня,&nbsp;&nbsp;<strong>{{ getProfile.first_name }}</strong></p>
         </div>
-        <div class="col-lg-2 offset-lg-2 tabs">
+        <div class="col-lg-2 offset-lg-2 col-md-2 offset-md-2 col-sm-2 offset-sm-1 tabs">
           <ul class="navbar-nav navbar-tips">
             <li v-if="!isAuthenticated && !authLoading && !isLoginPage" class="nav-item active nav-tip">
               <router-link to="/sign-in" class="nav-link">Увійти</router-link>
@@ -49,7 +49,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.header {
+  height: 40px;
+}
 .active-user {
   color: white;
   float: left;

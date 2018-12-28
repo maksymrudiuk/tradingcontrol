@@ -6,7 +6,7 @@
         v-for="(item, index) in daysButtons"
         :key="index"
         type="button"
-        class="btn btn-light"
+        class="btn btn-warning"
         @click="changeReportsDateRange(item.button.value, item.button.name)">
         {{ item.button.name }}
       </button>
@@ -52,7 +52,7 @@
         </tr>
       </tbody>
     </table>
-    <google-map></google-map>
+    <google-map v-bind:dateRange="selectedDayRange"></google-map>
   </main>
 </template>
 
@@ -163,9 +163,7 @@ ul {
   padding: 0
 }
 
-.btn:focus,
-.btn-secondary,
-.btn-light {
+.btn:focus {
   outline: none!important;
   box-shadow: none!important;
 }
