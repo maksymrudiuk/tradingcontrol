@@ -29,7 +29,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '192.168.43.197',
                  '192.168.0.105', '192.168.43.86',
-                 'localhost', '192.168.1.5',
                  'trading-control.tk',
                  'www.trading-control.tk'
                  ]

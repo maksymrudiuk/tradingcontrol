@@ -13,7 +13,7 @@
             За {{ dateRange.name }}
           </button>
           <date-picker
-            placeholder="Оберіть бажану дату"
+            placeholder="Оберіть потрібну дату"
             class="date-picker filter-item"
             :language="uk"
             :disabledDates="disabledDates"
