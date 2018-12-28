@@ -6,10 +6,10 @@
           <div class="modal-body">
             <slot name="body">
               Вийти ? &nbsp;&nbsp;&nbsp;
-              <button class="btn btn-outline-success modal-default-button" @click="logout">
+              <button class="btn btn-warning modal-default-button" @click="logout">
                 Так
               </button>
-              <button class="btn btn-outline-danger modal-default-button" @click="$emit('close')">
+              <button class="btn btn-danger modal-default-button" @click="$emit('close')">
                 Ні
               </button>
             </slot>

@@ -7,13 +7,20 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 import axios from 'axios'
+import * as VueGoogleMaps from 'vue2-google-maps'
 
 Vue.config.productionTip = false
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyDYNv60ip5q9janMxWQ8WKQYXtvgUSTR4I',
+    libraries: 'places'
+  }
+})
 
 const token = localStorage.getItem('user-token')
 
 if (token) {
-  axios.defaults.headers.common['Authorization'] = 'JWT ' + token
+  axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
 }
 
 new Vue({

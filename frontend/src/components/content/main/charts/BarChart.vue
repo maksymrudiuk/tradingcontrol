@@ -40,7 +40,7 @@ export default {
   watch: {
     chartdata: {
       handler: function (val, oldval) {
-        console.log('Watcher handler')
+        // console.log('Watcher handler')
         this.colorify(this.chartdata)
         this.renderChart(val, this.options)
       }

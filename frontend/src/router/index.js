@@ -30,8 +30,16 @@ const ifAuthenticated = (to, from, next) => {
   next('/sign-in')
 }
 
+const ifDirector = (to, from, next) => {
+  if (store.getters.isDirector) {
+    next()
+    return
+  }
+  next('/dashboard/home')
+}
+
 export default new Router({
-  mode: 'history',
+  // mode: 'history',
   routes: [
     {
       path: '/',
@@ -50,11 +58,13 @@ export default new Router({
         },
         {
           path: 'goods',
-          component: Goods
+          component: Goods,
+          beforeEnter: ifDirector
         },
         {
           path: 'staff',
-          component: Staff
+          component: Staff,
+          beforeEnter: ifDirector
         },
         {
           path: 'settings',

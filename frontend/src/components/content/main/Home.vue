@@ -1,6 +1,17 @@
 <template>
   <main role="main" class="col-lg-10 col-md-10 ml-sm-auto px-4">
     <h2 class="title">Головна</h2>
+    <div class="btn-group" role="group" aria-label="Report Data Range">
+      <button
+        v-for="(item, index) in daysButtons"
+        :key="index"
+        type="button"
+        class="btn btn-warning"
+        @click="changeReportsDateRange(item.button.value, item.button.name)">
+        {{ item.button.name }}
+      </button>
+    </div>
+    <p>Звіти за {{ selectedDayRange.name }}</p>
     <div class="chart">
       <bar-chart
         :chartdata='getBarDatacollection'
@@ -41,6 +52,7 @@
         </tr>
       </tbody>
     </table>
+    <google-map v-bind:dateRange="selectedDayRange"></google-map>
   </main>
 </template>
 
@@ -51,22 +63,53 @@ import barChartOptions from '@/chart/bar.js'
 import pieChartOptions from '@/chart/pie.js'
 import BarChart from './charts/BarChart.vue'
 import PieChart from './charts/PieChart.vue'
+import GoogleMap from './map/GoogleMap.vue'
 
-export default{
+export default {
   name: 'Home',
+
   components: {
     BarChart,
-    PieChart
+    PieChart,
+    'google-map': GoogleMap
   },
+
   data () {
     return {
       barOptions: barChartOptions,
-      pieOptions: pieChartOptions
+      pieOptions: pieChartOptions,
+      daysButtons: [{
+        button: {
+          name: '1 день',
+          value: 1
+        }
+      }, {
+        button: {
+          name: '1 тиждень',
+          value: 7
+        }
+      }, {
+        button: {
+          name: '2 тижні',
+          value: 14
+        }
+      }, {
+        button: {
+          name: '1 місяць',
+          value: 31
+        }
+      }],
+      selectedDayRange: {
+        name: '2 тижні',
+        value: 14
+      }
     }
   },
+
   computed: {
     ...mapGetters(['reportStatus', 'getReports', 'getBarDatacollection', 'getPieDatacollection'])
   },
+
   methods: {
     cellBackground: function (value) {
       if (value >= 70) {
@@ -76,19 +119,24 @@ export default{
       } else {
         return 'danger'
       }
+    },
+    changeReportsDateRange: function (value, name) {
+      // Set selected value to display
+      this.selectedDayRange.name = name
+      this.selectedDayRange.value = value
+      // Send request again with new params
+      this.$store.dispatch(GET_REPORTS, value)
     }
   },
-  mounted () {
-  },
+
   beforeMount () {
-    this.$store.dispatch(GET_REPORTS)
+    this.$store.dispatch(GET_REPORTS, this.selectedDayRange.value)
   }
 }
 
 </script>
 
 <style scoped>
-
 .action-items {
 
 }
@@ -113,5 +161,10 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0
+}
+
+.btn:focus {
+  outline: none!important;
+  box-shadow: none!important;
 }
 </style>

@@ -5,29 +5,31 @@
         <li class="nav-item">
           <router-link to="/dashboard/home" class="nav-link">
             <span class="link-icon"><img :src="`${baseUrl}static/home.svg`" alt="" width="20" height="20"></span>
-            Головна
+            <a>Головна</a>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link to="/dashboard/goods" class="nav-link" v-if="isDirector">
-            <span class="link-icon"><img :src="`${baseUrl}static/icecream.svg`" alt="" width="20" height="20"></span>Товари
+            <span class="link-icon"><img :src="`${baseUrl}static/icecream.svg`" alt="" width="20" height="20"></span>
+            <a>Товари</a>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link to="/dashboard/staff" class="nav-link" v-if="isDirector">
             <span class="link-icon"><img :src="`${baseUrl}static/staff.svg`" alt="" width="20" height="20"></span>
-            Персонал
+            <a>Персонал</a>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link to="/dashboard/reports" class="nav-link">
             <span class="link-icon"><img :src="`${baseUrl}static/analysis.svg`" alt="" width="20" height="20"></span>
-            Звіти
+            <a>Звіти</a>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link to="/dashboard/settings" class="nav-link">
-            <span class="link-icon"><img :src="`${baseUrl}static/controls.svg`" alt="" width="20" height="20"></span>Налаштування
+            <span class="link-icon"><img :src="`${baseUrl}static/controls.svg`" alt="" width="20" height="20"></span>
+            <a>Налаштування</a>
           </router-link>
         </li>
         <li v-if="isAuthenticated" @click="showModal = true" class="nav-link">
@@ -96,10 +98,14 @@ export default {
 
 .nav-link {
   text-align: left!important;
-  padding-left: 3em;
+  padding-left: 1em;
   color: black;
   cursor: pointer!important;
   font-size: 1em;
+}
+
+.nav-link:hover {
+  color: #FFC800;
 }
 
 .about-user {
@@ -117,4 +123,8 @@ export default {
   margin: 0;
 }
 
+/* .active {
+  color: #FFC800;
+  outline: 1px solid #FFC800;
+} */
 </style>

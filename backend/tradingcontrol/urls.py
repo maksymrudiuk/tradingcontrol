@@ -17,6 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.static import serve
+from django.views.generic import TemplateView
 
 from rest_framework_jwt.views import (obtain_jwt_token,
                                       refresh_jwt_token,
@@ -25,6 +26,8 @@ from rest_framework_jwt.views import (obtain_jwt_token,
 from .settings import MEDIA_ROOT, DEBUG
 
 urlpatterns = [
+
+    path('', TemplateView.as_view(template_name='index.html'), name="app"),
 
     # JWT Path from djangorestframework-jwt
     path('api/v1/token-auth/', obtain_jwt_token),

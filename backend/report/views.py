@@ -23,7 +23,8 @@ class ReportListView(APIView):
 
     def get(self, request, format=None):
 
-        time_ago = datetime.datetime.now() - datetime.timedelta(days=14)
+        days = int(self.request.query_params['fordays'])
+        time_ago = datetime.datetime.now() - datetime.timedelta(days=days)
 
         if self.request.user.isDirector:
             staff = UserProfile.objects.filter(

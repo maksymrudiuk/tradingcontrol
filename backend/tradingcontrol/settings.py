@@ -15,6 +15,7 @@ import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+FRONTEND_DIR = os.path.join(BASE_DIR, '..', 'frontend')
 
 
 # Quick-start development settings - unsuitable for production
@@ -28,12 +29,14 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', '192.168.43.197',
                  '192.168.0.105', '192.168.43.86',
-                 'localhost', '192.168.1.5']
+                 'trading-control.tk',
+                 'www.trading-control.tk'
+                 ]
 
 # Application definition
 
 INSTALLED_APPS = [
-    # django apps
+    # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    # downloads apps
+    # Downloads apps
     'django_extensions',  # use shell extensions
     'corsheaders',
     'rest_framework',
@@ -54,7 +57,7 @@ INSTALLED_APPS = [
     'rest_auth.registration',
     'django_select2',
 
-    # project apps
+    # Project apps
     'core',
     'user',
     'store',
@@ -81,7 +84,7 @@ ROOT_URLCONF = 'tradingcontrol.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(FRONTEND_DIR, 'dist')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -89,7 +92,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # 'django.template.context_processors.request',
             ],
         },
     },
@@ -100,40 +102,33 @@ WSGI_APPLICATION = 'tradingcontrol.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 try:
     from .database import DATABASES
-
-except Exception:
+except ImportError:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
+    raise ImportError(
+        'Cann`t find database.py. DATABASES config set as default.')
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.\
+        MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.\
+        CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.\
+        NumericPasswordValidator',
     },
 ]
 
@@ -156,7 +151,12 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/assets/'
+STATIC_ROOT = os.path.join(BASE_DIR, '..', 'assets')
+
+STATICFILES_DIRS = [
+    os.path.join(FRONTEND_DIR, 'dist/assets'),
+]
 
 
 # Media files
@@ -190,10 +190,14 @@ REST_FRAMEWORK = {
 
 # Django-allauth
 # https://django-allauth.readthedocs.io/en/latest/overview.html
-AUTH_USER_MODEL = 'user.UserProfile'  # custom user model
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Console email backend
+
+# Custom user model
+AUTH_USER_MODEL = 'user.UserProfile'
+# Console email backend
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SITE_ID = 1
-ACCOUNT_EMAIL_VERIFICATION = None  # eneble email verification
+# Eneble email verification
+ACCOUNT_EMAIL_VERIFICATION = None
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
@@ -261,13 +265,14 @@ JWT_AUTH = {
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_LEEWAY': 0,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),  # Token live time
+    # Token live time
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
     'JWT_AUDIENCE': None,
     'JWT_ISSUER': None,
-
     'JWT_ALLOW_REFRESH': False,
-    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7), # Refresh Token live time
-
-    'JWT_AUTH_HEADER_PREFIX': 'JWT', # Header prefix Example "Authorization: JWT <token>"
+    # Refresh Token live time
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    # Header prefix Example "Authorization: Bearer <token>"
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
     'JWT_AUTH_COOKIE': None,
 }
