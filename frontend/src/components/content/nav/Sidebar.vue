@@ -10,7 +10,8 @@
         </li>
         <li class="nav-item">
           <router-link to="/dashboard/goods" class="nav-link" v-if="isDirector">
-            <span class="link-icon"><img :src="`${baseUrl}static/icecream.svg`" alt="" width="20" height="20"></span>Товари
+            <span class="link-icon"><img :src="`${baseUrl}static/icecream.svg`" alt="" width="20" height="20"></span>
+            Товари
           </router-link>
         </li>
         <li class="nav-item">
@@ -27,7 +28,8 @@
         </li>
         <li class="nav-item">
           <router-link to="/dashboard/settings" class="nav-link">
-            <span class="link-icon"><img :src="`${baseUrl}static/controls.svg`" alt="" width="20" height="20"></span>Налаштування
+            <span class="link-icon"><img :src="`${baseUrl}static/controls.svg`" alt="" width="20" height="20"></span>
+            Налаштування
           </router-link>
         </li>
         <li v-if="isAuthenticated" @click="showModal = true" class="nav-link">
@@ -96,7 +98,7 @@ export default {
 
 .nav-link {
   text-align: left!important;
-  padding-left: 3em;
+  padding-left: 1em;
   color: black;
   cursor: pointer!important;
   font-size: 1em;
