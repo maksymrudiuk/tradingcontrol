@@ -27,8 +27,7 @@ SECRET_KEY = '#74^s105b6-q+886w$(@2v0$yvn*ubjsl2$vog%u_p5e)rs3p2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '192.168.43.197',
-                 '192.168.0.105', '192.168.43.86',
+ALLOWED_HOSTS = ['192.168.43.86',
                  'trading-control.tk',
                  'www.trading-control.tk'
                  ]
@@ -46,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     # Downloads apps
-    'django_extensions',  # use shell extensions
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
@@ -67,6 +65,11 @@ INSTALLED_APPS = [
     'location',
     'register',
 ]
+
+if DEBUG:
+    INSTALLED_APPS += [
+        'django_extensions',  # use shell extensions
+    ]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
