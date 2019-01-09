@@ -27,6 +27,7 @@ from .settings import MEDIA_ROOT, DEBUG
 
 urlpatterns = [
 
+    # Entry point
     path('', TemplateView.as_view(template_name='index.html'), name="app"),
 
     # JWT Path from djangorestframework-jwt
@@ -42,7 +43,9 @@ urlpatterns = [
 
     # Defaul path
     path('admin/', admin.site.urls),
+    # Test api path
     path('rest/', include('rest_framework.urls')),
+    # modified select2 path
     url(r'^select2/', include('django_select2.urls')),
 
 ]

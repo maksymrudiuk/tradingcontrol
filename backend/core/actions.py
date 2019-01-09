@@ -31,7 +31,7 @@ def perform_update(found_list, current_item):
 
 def detect(uploadphoto_list, store_id):
 
-    goods = GoodsInStore.objects.filter(store_id=store_id)
+    goods = GoodsInStore.objects.filter(store_id=int(store_id))
 
     if uploadphoto_list and goods:
 
@@ -53,7 +53,10 @@ def detect(uploadphoto_list, store_id):
                 train = file
                 query = item.goods.image
 
-                image_status = ipc.init(query, train)
+                try:
+                    image_status = ipc.init(query, train)
+                except Exception:
+                    continue
 
                 if image_status:
                     positiv += 1

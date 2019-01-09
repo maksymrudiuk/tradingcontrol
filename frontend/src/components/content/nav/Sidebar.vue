@@ -4,36 +4,36 @@
       <ul class="nav flex-column">
         <li class="nav-item">
           <router-link to="/dashboard/home" class="nav-link">
-            <span class="link-icon"><img :src="`${baseUrl}static/home.svg`" alt="" width="20" height="20"></span>
+            <span class="link-icon"><img :src="`${baseUrl}/assets/static/home.svg`" alt="" width="20" height="20"></span>
             <a>Головна</a>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link to="/dashboard/goods" class="nav-link" v-if="isDirector">
-            <span class="link-icon"><img :src="`${baseUrl}static/icecream.svg`" alt="" width="20" height="20"></span>
+            <span class="link-icon"><img :src="`${baseUrl}/assets/static/icecream.svg`" alt="" width="20" height="20"></span>
             <a>Товари</a>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link to="/dashboard/staff" class="nav-link" v-if="isDirector">
-            <span class="link-icon"><img :src="`${baseUrl}static/staff.svg`" alt="" width="20" height="20"></span>
+            <span class="link-icon"><img :src="`${baseUrl}/assets/static/staff.svg`" alt="" width="20" height="20"></span>
             <a>Персонал</a>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link to="/dashboard/reports" class="nav-link">
-            <span class="link-icon"><img :src="`${baseUrl}static/analysis.svg`" alt="" width="20" height="20"></span>
+            <span class="link-icon"><img :src="`${baseUrl}/assets/static/analysis.svg`" alt="" width="20" height="20"></span>
             <a>Звіти</a>
           </router-link>
         </li>
         <li class="nav-item">
           <router-link to="/dashboard/settings" class="nav-link">
-            <span class="link-icon"><img :src="`${baseUrl}static/controls.svg`" alt="" width="20" height="20"></span>
+            <span class="link-icon"><img :src="`${baseUrl}/assets/static/controls.svg`" alt="" width="20" height="20"></span>
             <a>Налаштування</a>
           </router-link>
         </li>
         <li v-if="isAuthenticated" @click="showModal = true" class="nav-link">
-          <span class="link-icon"><img :src="`${baseUrl}static/logout.svg`" alt="" width="20" height="20"></span>
+          <span class="link-icon"><img :src="`${baseUrl}/assets/static/logout.svg`" alt="" width="20" height="20"></span>
           <span class="logout">Вийти</span>
         </li>
       </ul>
