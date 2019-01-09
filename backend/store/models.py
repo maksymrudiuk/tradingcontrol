@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext as _
+from datetime import datetime
 
 
 class Store(models.Model):
@@ -34,6 +35,10 @@ class Store(models.Model):
         verbose_name=_('Довгота'),
         blank=True,
         null=True)
+
+    last_visited = models.DateTimeField(
+        _('Останній візит'),
+        default=datetime(1970, 1, 1))
 
     def __str__(self):
         return '%s  %s' % (self.name, self.get_short_address())

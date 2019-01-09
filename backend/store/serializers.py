@@ -7,11 +7,11 @@ from location.serializers import RegionSerializer
 class StoreSerializer(serializers.ModelSerializer):
 
     # goods = GoodsSerializer(many=True)
-    store_region = RegionSerializer()
+    # store_region = RegionSerializer()
 
     class Meta:
         model = Store
-        fields = ('id', 'name', 'store_region', 'address', 'lat', 'lon')
+        fields = ('id', 'name', 'last_visited', 'address', 'lat', 'lon')
 
 
 class GoodsInStoreSerializer(serializers.ModelSerializer):
