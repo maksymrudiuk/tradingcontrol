@@ -54,29 +54,25 @@ class Upload(APIView):
             time_data['t_start'] = self.request.data['t_start']
             time_data['t_finish'] = self.request.data['t_finish']
             time_data['t_delta'] = self.request.data['t_delta']
-            print(time_data)
+
+            store = Store.objects.get(id=store_id)
+            store.last_visited = timezone.now().replace(microsecond=0)
 
             for file in self.request.data.getlist('files'):
-                print(file)
 
-                data = {'file': file, 'store_id': store_id}
+                data = {'file': file}
                 serializer = UploadPhotoSerializer(data=data)
 
                 if serializer.is_valid():
-                    serializer.save(owner=self.request.user)
+                    serializer.save(owner=self.request.user, store=store)
                     upload_photos.append(serializer.data['file'])
-                    # print(serializer.data)
                 else:
                     errors.append(serializer.errors)
 
             if errors:
                 return Response(errors, status=HTTP_400_BAD_REQUEST)
             else:
-                print(timezone.now())
-                store = Store.objects.get(id=store_id)
-                store.last_visited = timezone.now().replace(microsecond=0)
                 store.save()
-                print('OK')
                 image_processing.delay(upload_photos,
                                        store_id,
                                        time_data,

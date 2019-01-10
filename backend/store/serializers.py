@@ -1,13 +1,9 @@
 from rest_framework import serializers
-from .models import Store, GoodsInStore
+from .models import Store
 from goods.serializers import GoodsSerializer
-from location.serializers import RegionSerializer
 
 
 class StoreSerializer(serializers.ModelSerializer):
-
-    # goods = GoodsSerializer(many=True)
-    # store_region = RegionSerializer()
 
     class Meta:
         model = Store

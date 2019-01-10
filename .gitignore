@@ -90,3 +90,9 @@ test_users.txt
 
 # Dev requirements
 req_dev.txt
+
+# prod dep
+/assets
+/support
+
+.gitignore
