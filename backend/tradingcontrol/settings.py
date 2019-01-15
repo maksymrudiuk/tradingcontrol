@@ -30,7 +30,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', '192.168.43.197',
                  '192.168.0.105', '192.168.43.86',
                  'trading-control.tk',
-                 'www.trading-control.tk'
+                 'www.trading-control.tk',
+                 '127.0.0.1',
                  ]
 
 # Application definition

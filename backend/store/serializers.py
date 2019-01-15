@@ -10,10 +10,10 @@ class StoreSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'last_visited', 'address', 'lat', 'lon')
 
 
-class GoodsInStoreSerializer(serializers.ModelSerializer):
+# class GoodsInStoreSerializer(serializers.ModelSerializer):
 
-    goods = GoodsSerializer(many=True)
+#     goods = GoodsSerializer(many=True)
 
-    class Meta:
-        model = Store
-        fields = ('name', 'goods',)
+#     class Meta:
+#         model = Store
+#         fields = ('name', 'goods',)
