@@ -29,7 +29,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['192.168.43.86',
                  'trading-control.tk',
-                 'www.trading-control.tk'
+                 'www.trading-control.tk',
+                 '127.0.0.1',
                  ]
 
 # Application definition
@@ -269,12 +270,12 @@ JWT_AUTH = {
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_LEEWAY': 0,
     # Token live time
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=30),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=180),
     'JWT_AUDIENCE': None,
     'JWT_ISSUER': None,
     'JWT_ALLOW_REFRESH': False,
     # Refresh Token live time
-    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=70),
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=360),
     # Header prefix Example "Authorization: Bearer <token>"
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
     'JWT_AUTH_COOKIE': None,
