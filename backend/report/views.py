@@ -23,20 +23,30 @@ class ReportListView(APIView):
 
     def get(self, request, format=None):
 
-        days = int(self.request.query_params['fordays'])
-        time_ago = datetime.datetime.now() - datetime.timedelta(days=days)
+        filter_params = {}
+
+        if 'fordays' in self.request.query_params:
+            days = int(self.request.query_params['fordays'])
+            time_ago = datetime.datetime.now() - datetime.timedelta(days=days)
+            filter_params['created_at__gte'] = time_ago
+
+        if 'store' in self.request.query_params:
+            store = int(self.request.query_params['store'])
+            filter_params['store__id'] = store
 
         if self.request.user.isDirector:
+
             staff = UserProfile.objects.filter(
                 company=self.request.user.company)
+
             context = ReportData.objects.filter(
                 owner__in=staff,
-                created_at__gte=time_ago)
+                **filter_params)
 
         else:
             context = ReportData.objects.filter(
                 owner=self.request.user,
-                created_at__gte=time_ago)
+                **filter_params)
 
         serializer = ReportDataSerializer(context, many=True)
         return Response(serializer.data)
