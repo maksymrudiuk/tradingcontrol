@@ -53,10 +53,10 @@ def detect(uploadphoto_list, store_id):
                 train = file
                 query = item.goods.image
 
-                try:
-                    image_status = ipc.init(query, train)
-                except Exception:
-                    continue
+                # try:
+                image_status = ipc.init(query, train)
+                # except Exception:
+                    # continue
 
                 if image_status:
                     positiv += 1

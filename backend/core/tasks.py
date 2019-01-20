@@ -8,9 +8,9 @@ from .mutations import save_report_in_db, update_upload_photo
 def image_processing(uploadphoto_list, store_id, time_data, username):
     data = detect(uploadphoto_list, store_id)
     if data:
-        data.update(time_data)
-        report_id = save_report_in_db(data, store_id, username)
-        update_upload_photo(uploadphoto_list, report_id)
+        #data.update(time_data)
+        #report_id = save_report_in_db(data, store_id, username)
+        #update_upload_photo(uploadphoto_list, report_id)
         print('All operations in successfuly completed')
     else:
         print('Error in detect process')
