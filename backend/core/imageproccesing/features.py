@@ -16,9 +16,15 @@ class Features(object):
 
     def __init__(self, query, train):
         # super(Features, self).__init__()
-        surf = cv2.xfeatures2d.SURF_create()
-        (self.query_kps, self.query_descs) = surf.detectAndCompute(query, None)
-        (self.train_kps, self.train_descs) = surf.detectAndCompute(train, None)
+        # surf = cv2.xfeatures2d.SURF_create()
+        sift = cv2.xfeatures2d.SIFT_create()
+        # orb = cv2.ORB_create()
+        # (self.query_kps, self.query_descs) = surf.detectAndCompute(query, None)
+        # (self.train_kps, self.train_descs) = surf.detectAndCompute(train, None)
+        # (self.query_kps, self.query_descs) = orb.detectAndCompute(query, None)
+        # (self.train_kps, self.train_descs) = orb.detectAndCompute(train, None)
+        (self.query_kps, self.query_descs) = sift.detectAndCompute(query, None)
+        (self.train_kps, self.train_descs) = sift.detectAndCompute(train, None)
 
     def get_kps(self):
         return (self.query_kps, self.train_kps)
@@ -43,6 +49,19 @@ class Features(object):
                 self.good.append(m)
 
         return self.good
+
+    def get_bf_matches(self):
+        bf = cv2.BFMatcher()
+        matches = bf.knnMatch(self.query_descs, self.train_descs, k=2)
+
+        good = []
+
+        for m, n in matches:
+            if m.distance < DISTANCE_CORRECT * n.distance:
+                good.append(m)
+
+        matches = sorted(good, key=lambda x: x.distance)
+        return matches
 
     def draw_keypoints(self, img, kps):
 

@@ -37,9 +37,11 @@ def init(query_path, train_path):
     features = Features(query, train)
     # query_kps, train_kps = features.get_kps()
     # query_descs, train_descs = features.get_descs()
-    matches = features.get_matches()
+    # matches = features.get_matches()
+    matches = features.get_bf_matches()
 
     if len(matches) < MATCH_THRESHOLD:
+        # print(len(matches))
         status = False
         # print('False')
 
@@ -55,16 +57,16 @@ def init(query_path, train_path):
         # matchesMask = mask.ravel().tolist()
         # (h, w) = query.shape[:-1]
         # pts = np.float32([[0, 0], [0, h - 1],
-        #                  [w - 1, h - 1], [w - 1, 0]]).reshape(-1, 1, 2)
+                         # [w - 1, h - 1], [w - 1, 0]]).reshape(-1, 1, 2)
         # dst = cv2.perspectiveTransform(pts, M)
 
         # train = cv2.polylines(train, [np.int32(dst)],
-        #                       True, (255, 0, 0), 3, cv2.LINE_AA)
+                              # True, (255, 0, 0), 3, cv2.LINE_AA)
 
         # draw_params = dict(matchColor=(0, 255, 0),
-        #                    singlePointColor=None,
-        #                    matchesMask=matchesMask,
-        #                    flags=2)
+                           # singlePointColor=None,
+                           # matchesMask=matchesMask,
+                           # flags=2)
 
         # img3 = cv2.drawMatches(query, query_kps,
         #                        train, train_kps, matches,
