@@ -35,45 +35,45 @@ def init(query_path, train_path):
 
     # Get matches and keypoints
     features = Features(query, train)
-    query_kps, train_kps = features.get_kps()
+    # query_kps, train_kps = features.get_kps()
     # query_descs, train_descs = features.get_descs()
     # matches = features.get_matches()
     matches = features.get_bf_matches()
 
     if len(matches) < MATCH_THRESHOLD:
-        print(len(matches))
+        # print(len(matches))
         status = False
-        print('False')
+        # print('False')
 
     else:
         # print(len(matches))
         # print('True')
         # r_table = build_r_table(query, query_kps, matches, reference_point)
         # accumulator = accumulate_kps(r_table, train, train_kps, matches)
-        src_pts = np.float32([query_kps[m.queryIdx].pt for m in matches]).reshape(-1, 1, 2)
-        dst_pts = np.float32([train_kps[m.trainIdx].pt for m in matches]).reshape(-1, 1, 2)
+        # src_pts = np.float32([query_kps[m.queryIdx].pt for m in matches]).reshape(-1, 1, 2)
+        # dst_pts = np.float32([train_kps[m.trainIdx].pt for m in matches]).reshape(-1, 1, 2)
 
-        (M, mask) = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
-        matchesMask = mask.ravel().tolist()
-        (h, w) = query.shape[:-1]
-        pts = np.float32([[0, 0], [0, h - 1],
-                         [w - 1, h - 1], [w - 1, 0]]).reshape(-1, 1, 2)
-        dst = cv2.perspectiveTransform(pts, M)
+        # (M, mask) = cv2.findHomography(src_pts, dst_pts, cv2.RANSAC, 5.0)
+        # matchesMask = mask.ravel().tolist()
+        # (h, w) = query.shape[:-1]
+        # pts = np.float32([[0, 0], [0, h - 1],
+        #                  [w - 1, h - 1], [w - 1, 0]]).reshape(-1, 1, 2)
+        # dst = cv2.perspectiveTransform(pts, M)
 
-        train = cv2.polylines(train, [np.int32(dst)],
-                              True, (255, 0, 0), 3, cv2.LINE_AA)
+        # train = cv2.polylines(train, [np.int32(dst)],
+        #                       True, (255, 0, 0), 3, cv2.LINE_AA)
 
-        draw_params = dict(matchColor=(0, 255, 0),
-                           singlePointColor=None,
-                           # matchesMask=matchesMask,
-                           flags=2)
+        # draw_params = dict(matchColor=(0, 255, 0),
+        #                    singlePointColor=None,
+        #                    # matchesMask=matchesMask,
+        #                    flags=2)
 
-        img3 = cv2.drawMatches(query, query_kps,
-                               train, train_kps, matches,
-                               None, **draw_params)
-        plt.ioff()
-        plt.figure('Res')
-        plt.imshow(img3)
-        plt.show()
+        # img3 = cv2.drawMatches(query, query_kps,
+        #                        train, train_kps, matches,
+        #                        None, **draw_params)
+        # plt.ioff()
+        # plt.figure('Res')
+        # plt.imshow(img3)
+        # plt.show()
         status = True
     return status
