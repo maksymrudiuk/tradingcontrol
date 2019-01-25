@@ -12,7 +12,7 @@ def is_it_processed(found_list, current_item):
 
     for item in found_list:
 
-        if item['name'] == current_item and item['status']:
+        if item['goods_item'] == current_item and item['status']:
             return True
 
 
@@ -21,7 +21,7 @@ def perform_update(found_list, current_item):
     response_list = []
 
     for item in found_list:
-        if item['name'] == current_item and not item['status']:
+        if item['goods_item'] == current_item and not item['status']:
             del item
         else:
             response_list.append(item)
@@ -47,7 +47,7 @@ def detect(uploadphoto_list, store_id):
 
             for item in goods:
 
-                if is_it_processed(found_list, item.goods.name):
+                if is_it_processed(found_list, item.goods.id):
                     continue
 
                 train = file
@@ -56,17 +56,17 @@ def detect(uploadphoto_list, store_id):
                 # try:
                 image_status = ipc.init(query, train)
                 # except Exception:
-                    # continue
+                #    continue
 
                 if image_status:
                     positiv += 1
 
                 data_report_item = {
-                    'name': str(item.goods.name),
+                    'goods_item': item.goods.id,
                     'status': image_status
                 }
 
-                found_list = perform_update(found_list, item.goods.name)
+                found_list = perform_update(found_list, item.goods.id)
                 found_list.append(data_report_item)
 
         goods_percent = round(((positiv / len(goods)) * 100), 2)

@@ -7,6 +7,7 @@ from .mutations import save_report_in_db, update_upload_photo
 @shared_task
 def image_processing(uploadphoto_list, store_id, time_data, username):
     data = detect(uploadphoto_list, store_id)
+    print(data)
     if data:
         data.update(time_data)
         report_id = save_report_in_db(data, store_id, username)

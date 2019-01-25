@@ -1,6 +1,6 @@
 <template>
   <main role="main" class="col-lg-10 col-md-10 ml-sm-auto px-4">
-    <h2 class="title">Головна</h2>
+    <h2 class="content-title">Головна</h2>
     <div class="btn-group" role="group" aria-label="Report Data Range">
       <button
         v-for="(item, index) in daysButtons"
