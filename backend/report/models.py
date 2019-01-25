@@ -53,10 +53,12 @@ class ReportItem(models.Model):
         verbose_name = _('Товар - Звіт')
         verbose_name_plural = _('Товари - Звіт')
 
-    name = models.CharField(
-        verbose_name=_('Назва'),
-        max_length=256,
-        blank=True)
+    goods_item = models.ForeignKey(
+        'goods.Goods',
+        related_name='goods_item',
+        verbose_name='Товар',
+        null=True,
+        on_delete=models.SET_NULL)
 
     status = models.BooleanField(_('Знайдено?'))
 
@@ -69,4 +71,4 @@ class ReportItem(models.Model):
         on_delete=models.CASCADE)
 
     def __str__(self):
-        return '%s' % self.name
+        return '(%s - %s)' % (self.goods_item.name, self.report)

@@ -11,6 +11,7 @@ import Staff from '@/components/content/main/Staff.vue'
 import Settings from '@/components/content/main/Settings.vue'
 import Reports from '@/components/content/main/Reports.vue'
 import store from '@/store.js'
+import RAlbum from '@/components/content/main/gallery/RAlbum'
 
 Vue.use(Router)
 
@@ -73,6 +74,12 @@ export default new Router({
         {
           path: 'reports',
           component: Reports
+        },
+        {
+          path: 'reports/:reportId/',
+          name: 'reportDetails',
+          component: RAlbum,
+          props: true
         }
       ]
     },

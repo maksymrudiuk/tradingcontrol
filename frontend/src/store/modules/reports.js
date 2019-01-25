@@ -1,9 +1,10 @@
 import { Report } from '@/api/report'
-import { GET_REPORTS, GET_REPORT_SUCCESS, GET_REPORT_ERROR, CLEAR_REPORT_AFTER_LOGOUT } from '../mutations/report-mutation-types.js'
+import { GET_REPORTS, GET_REPORT_SUCCESS, GET_REPORT_ERROR, CLEAR_REPORT_AFTER_LOGOUT, GET_RETRIEVE_REPORT } from '../mutations/report-mutation-types.js'
 
 const state = {
   reports: [],
-  status: 'logout'
+  status: '',
+  retrieve: {}
 }
 
 const getters = {
@@ -66,6 +67,9 @@ const getters = {
       markers.push({ position, title })
     }
     return markers
+  },
+  retrieveReport: state => {
+    return state.retrieve
   }
 }
 
@@ -83,6 +87,10 @@ const mutations = {
   [CLEAR_REPORT_AFTER_LOGOUT] (state) {
     state.status = 'logout'
     state.reports = []
+  },
+  [GET_RETRIEVE_REPORT] (state, response) {
+    state.status = 'get detail report'
+    state.retrieve = response
   }
 }
 
@@ -93,6 +101,20 @@ const actions = {
       Report.getReports(days)
         .then(response => {
           commit(GET_REPORT_SUCCESS, response)
+          resolve(response)
+        })
+        .catch(err => {
+          commit(GET_REPORT_ERROR, err)
+          reject(err)
+        })
+    })
+  },
+  [GET_RETRIEVE_REPORT] ({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      commit(GET_REPORTS)
+      Report.retrieveReport(id)
+        .then(response => {
+          commit(GET_RETRIEVE_REPORT, response)
           resolve(response)
         })
         .catch(err => {

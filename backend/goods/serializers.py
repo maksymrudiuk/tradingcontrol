@@ -9,3 +9,10 @@ class GoodsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Goods
         fields = ('name', 'category')
+
+
+class GoodsWithImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Goods
+        fields = ('name', 'image')

@@ -26,7 +26,7 @@ export default {
 </style>
 
 <style>
-.title {
+.content-title {
   margin-top: 1em;
   margin-bottom: 1em;
 }
