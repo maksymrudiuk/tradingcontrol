@@ -63,7 +63,7 @@ export default{
   },
 
   computed: {
-    ...mapGetters(['getReports',])
+    ...mapGetters(['getReports'])
   },
 
   methods: {

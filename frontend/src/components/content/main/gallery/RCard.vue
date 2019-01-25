@@ -16,7 +16,7 @@ export default{
   props: ['title', 'message', 'id'],
   methods: {
     seeDetail: function () {
-      this.$router.push('/dashboard/reports/'+this.id)
+      this.$router.push('/dashboard/reports/' + this.id)
     }
   }
 }

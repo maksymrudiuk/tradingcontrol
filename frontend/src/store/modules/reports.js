@@ -110,7 +110,7 @@ const actions = {
     })
   },
   [GET_RETRIEVE_REPORT] ({ commit }, id) {
-    return new Promise ((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       commit(GET_REPORTS)
       Report.retrieveReport(id)
         .then(response => {

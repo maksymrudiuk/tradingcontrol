@@ -22,7 +22,7 @@ export default{
     'r-goods': RGoods
   },
   computed: {
-    ...mapGetters(['retrieveReport',])
+    ...mapGetters(['retrieveReport'])
   },
 
   beforeMount () {
