@@ -4,8 +4,8 @@
     <div class="card-body">
       <h5 class="card-title">{{ goods.goods_item.name }}</h5>
       <footer class="card-text">
-        <img v-if="goods.status" :src="`/static/ok.svg`" alt="Ok" width="40px">
-        <img v-if="!goods.status" :src="`/static/error.svg`" alt="No" width="40px">
+        <img v-if="goods.status" :src="`${baseUrl}/assets/static/ok.svg`" alt="Ok" width="40px">
+        <img v-if="!goods.status" :src="`${baseUrl}/assets/static/error.svg`" alt="No" width="40px">
       </footer>
     </div>
   </div>
@@ -19,7 +19,8 @@ export default{
     return {
       mediaUrl: process.env.NODE_ENV === 'production'
         ? 'https://trading-control.tk'
-        : 'http://127.0.0.1:8000'
+        : 'http://127.0.0.1:8000',
+      baseUrl: process.env.BASE_URL
     }
   }
 }
