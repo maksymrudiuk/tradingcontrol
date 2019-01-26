@@ -1,5 +1,7 @@
 <template>
   <main role="main" class="col-lg-10 col-md-10 ml-sm-auto px-4">
+    <h2 class="content-title">{{ retrieveReport.store.name }}</h2>
+    <p><strong>{{ retrieveReport.store.address }}</strong><p>
     <div class="row">
       <r-goods
         v-for="(item, key) in retrieveReport.assortment"
@@ -22,7 +24,7 @@ export default{
     'r-goods': RGoods
   },
   computed: {
-    ...mapGetters(['retrieveReport',])
+    ...mapGetters(['retrieveReport'])
   },
 
   beforeMount () {
