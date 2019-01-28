@@ -1,4 +1,3 @@
-//
 import { Report } from '@/api/report'
 import { GET_REPORTS, GET_REPORT_SUCCESS, GET_REPORT_ERROR, CLEAR_REPORT_AFTER_LOGOUT, GET_RETRIEVE_REPORT } from '../mutations/report-mutation-types.js'
 

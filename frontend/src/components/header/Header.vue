@@ -17,7 +17,8 @@
         <div class="col-lg-3 offset-lg-3 col-md-3 offset-md-3 col-sm-4 offset-sm-1 active-user">
           <p
             v-if="isProfileLoaded && isAuthenticated"
-            class="username">Доброго дня,&nbsp;&nbsp;>
+            class="username">
+            Доброго дня,&nbsp;&nbsp;
             <strong>{{ getProfile.first_name }}</strong>
           </p>
         </div>
