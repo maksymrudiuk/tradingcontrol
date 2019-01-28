@@ -1,8 +1,11 @@
+// Modules imports
+import axios from 'axios'
+// Api imports
 import { Auth } from '@/api/auth'
+// Mutation types imports
 import { AUTH_REQUEST, AUTH_SUCCESS, AUTH_ERROR, AUTH_LOGOUT } from '../mutations/auth-mutation-types.js'
 import { USER_REQUEST, SET_STAFF_TO_NULL } from '../mutations/user-mutation-types.js'
 import { CLEAR_REPORT_AFTER_LOGOUT } from '../mutations/report-mutation-types.js'
-import axios from 'axios'
 
 const state = {
   token: localStorage.getItem('user-token') || '',

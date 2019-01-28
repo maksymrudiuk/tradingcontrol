@@ -57,13 +57,16 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { GET_REPORTS } from '@/store/mutations/report-mutation-types.js'
+// Chart imports
 import barChartOptions from '@/chart/bar.js'
 import pieChartOptions from '@/chart/pie.js'
+// Components imports
+import GoogleMap from './map/GoogleMap.vue'
 import BarChart from './charts/BarChart.vue'
 import PieChart from './charts/PieChart.vue'
-import GoogleMap from './map/GoogleMap.vue'
+// Store imports
+import { mapGetters } from 'vuex'
+import { GET_REPORTS } from '@/store/mutations/report-mutation-types.js'
 
 export default {
   name: 'Home',

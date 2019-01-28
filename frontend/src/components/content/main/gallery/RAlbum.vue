@@ -13,16 +13,20 @@
 </template>
 
 <script>
-import { GET_RETRIEVE_REPORT } from '@/store/mutations/report-mutation-types.js'
-import { mapGetters } from 'vuex'
+// Components imports
 import RGoods from './RGoods.vue'
+// Store imports
+import { mapGetters } from 'vuex'
+import { GET_RETRIEVE_REPORT } from '@/store/mutations/report-mutation-types.js'
 
 export default{
   name: 'RAlbum',
   props: ['reportId'],
+
   components: {
     'r-goods': RGoods
   },
+
   computed: {
     ...mapGetters(['retrieveReport'])
   },

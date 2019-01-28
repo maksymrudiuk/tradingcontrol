@@ -8,6 +8,7 @@
 </template>
 
 <script>
+// Components imports
 import Sidebar from './nav/Sidebar.vue'
 
 export default {

@@ -21,7 +21,9 @@
 </template>
 
 <script>
+// Components imports
 import RCard from './gallery/RCard.vue'
+// Store imports
 import { mapGetters } from 'vuex'
 import { GET_REPORTS } from '@/store/mutations/report-mutation-types.js'
 
@@ -63,7 +65,7 @@ export default{
   },
 
   computed: {
-    ...mapGetters(['getReports',])
+    ...mapGetters(['getReports'])
   },
 
   methods: {

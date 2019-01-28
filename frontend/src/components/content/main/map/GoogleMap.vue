@@ -48,11 +48,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+// Modules imports
+import moment from 'moment'
 import Datepicker from 'vuejs-datepicker'
 import { en, uk } from 'vuejs-datepicker/dist/locale'
+// Store imports
+import { mapGetters } from 'vuex'
 import { GET_STAFF } from '@/store/mutations/user-mutation-types.js'
-import moment from 'moment'
 
 export default {
   name: 'GoogleMap',

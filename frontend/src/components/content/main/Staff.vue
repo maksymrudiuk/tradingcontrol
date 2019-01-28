@@ -26,14 +26,17 @@
 </template>
 
 <script>
+// Store imports
 import { mapGetters } from 'vuex'
 import { GET_STAFF } from '@/store/mutations/user-mutation-types.js'
 
 export default{
   name: 'Staff',
+
   computed: {
     ...mapGetters(['getStaff'])
   },
+
   beforeMount () {
     this.$store.dispatch(GET_STAFF)
   }

@@ -1,16 +1,16 @@
 <template>
   <div class="center-inside">
-    <form class="sign-in-form col-lg-4 offset-lg-4 col-md-4 offset-md-4 col-sm-8 offset-sm-2" @submit.prevent="login">
+    <form
+      class="sign-in-form col-lg-4 offset-lg-4 col-md-4 offset-md-4 col-sm-8 offset-sm-2"
+      @submit.prevent="login">
       <h3>Login</h3>
       <div v-if="isError" class="alert alert-danger" role="alert">
         Помилка аутентифікації
       </div>
       <div class="form-group">
-        <!-- <label for="username">Username</label> -->
         <input required v-model="username" type="text" class="form-control" id="username" placeholder="username" autocomplete="username">
       </div>
       <div class="form-group">
-        <!-- <label for="password">Password</label> -->
         <input required v-model="password" type="password" class="form-control" id="password" placeholder="password" autocomplete="current-password">
       </div>
       <button type="submit" class="btn btn-primary">Login</button>
@@ -19,21 +19,25 @@
 </template>
 
 <script>
+// Store imports
 import { AUTH_REQUEST } from '@/store/mutations/auth-mutation-types.js'
 
 export default {
   name: 'Sign-in',
+
   data () {
     return {
       username: '',
       password: ''
     }
   },
+
   computed: {
     isError: function () {
       return this.$store.getters.authStatus === 'error'
     }
   },
+
   methods: {
     login: function () {
       const { username, password } = this

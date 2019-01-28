@@ -1,8 +1,10 @@
 <script>
+// Vue - charrt lib imports
 import { Pie } from 'vue-chartjs'
 
 export default {
   extends: Pie,
+
   props: {
     chartdata: {
       type: Object,
@@ -13,9 +15,11 @@ export default {
       default: null
     }
   },
+
   mounted () {
     this.renderChart(this.chartdata, this.options)
   },
+
   watch: {
     chartdata: {
       handler: function (val, oldval) {

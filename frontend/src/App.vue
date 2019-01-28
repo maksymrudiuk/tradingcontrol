@@ -7,17 +7,22 @@
 </template>
 
 <script>
+// Modules imports
+import axios from 'axios'
+// Components imports
 import Header from './components/header/Header.vue'
 import Footer from './components/footer/Footer.vue'
-import axios from 'axios'
+// Store imports
 import { AUTH_LOGOUT } from '@/store/mutations/auth-mutation-types.js'
 
 export default {
   name: 'app',
+
   components: {
     'MyHeader': Header,
     'MyFooter': Footer
   },
+
   created: function () {
     axios.interceptors.response.use(undefined, function (err) {
       return new Promise(function (resolve, reject) {

@@ -4,7 +4,11 @@
       <h5 class="card-title">{{ title }}</h5>
       <p class="card-text">{{ message }}</p>
       <div>
-        <router-link class="btn btn-primary" :to="{ name: 'reportDetails', params: { reportId: id }}">Детально</router-link>
+        <router-link
+          class="btn btn-primary"
+          :to="{ name: 'reportDetails', params: { reportId: id }}">
+          Детально
+        </router-link>
       </div>
     </div>
   </div>
@@ -14,9 +18,10 @@
 export default{
   name: 'RCard',
   props: ['title', 'message', 'id'],
+
   methods: {
     seeDetail: function () {
-      this.$router.push('/dashboard/reports/'+this.id)
+      this.$router.push('/dashboard/reports/' + this.id)
     }
   }
 }

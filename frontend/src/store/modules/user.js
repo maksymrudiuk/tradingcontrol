@@ -1,4 +1,6 @@
+// Api imports
 import { User } from '@/api/user'
+// Mutation types impots
 import { USER_REQUEST, USER_ERROR, USER_SUCCESS, GET_STAFF, SET_STAFF_TO_NULL } from '../mutations/user-mutation-types.js'
 import { AUTH_LOGOUT } from '../mutations/auth-mutation-types.js'
 

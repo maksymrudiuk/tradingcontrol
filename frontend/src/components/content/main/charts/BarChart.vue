@@ -1,9 +1,12 @@
 <script>
+// Vue - chart lib imports
 import { Bar } from 'vue-chartjs'
+// My utils imports
 import rgbGenerate from '@/utils/colors.js'
 
 export default {
   extends: Bar,
+
   props: {
     chartdata: {
       type: Object,
@@ -18,6 +21,7 @@ export default {
       default: null
     }
   },
+
   methods: {
     colorify: function (chartdata) {
       const backgroundColor = []
@@ -33,14 +37,15 @@ export default {
       chartdata.datasets[0]['borderColor'] = borderColor
     }
   },
+
   mounted () {
     this.colorify(this.chartdata)
     this.renderChart(this.chartdata, this.options)
   },
+
   watch: {
     chartdata: {
       handler: function (val, oldval) {
-        // console.log('Watcher handler')
         this.colorify(this.chartdata)
         this.renderChart(val, this.options)
       }
