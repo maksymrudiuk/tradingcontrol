@@ -7,7 +7,7 @@
             <slot name="body">
               Вийти ? &nbsp;&nbsp;&nbsp;
               <button
-                class="btn btn-warning modal-default-button"
+                class="btn btn-warning modal-defatault-button"
                 @click="logout">
                 Так
               </button>
