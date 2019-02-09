@@ -10,7 +10,7 @@
             type="button"
             class="btn btn-warning filter-item"
             @click="setFullDateRange()">
-            За {{ dateRange.name }}
+            За весь доступний період
           </button>
           <date-picker
             placeholder="Оберіть потрібну дату"
@@ -82,7 +82,7 @@ export default {
     ...mapGetters(['getStaff', 'getReports', 'isDirector']),
     disabledDates: function () {
       const disabledDates = {}
-      let timeAgo = moment().subtract(this.dateRange.value, 'days').format()
+      let timeAgo = moment().subtract(this.dateRange, 'days').format()
       disabledDates['to'] = new Date(timeAgo)
       disabledDates['from'] = new Date()
       return disabledDates

@@ -56,7 +56,7 @@
 
 <script>
 // Components imports
-import ExitConfirm from '../modal/Modal.vue'
+import ExitConfirm from '../AuxiliaryComponents/ModalWindows/Modal.vue'
 // Store imports
 import { mapGetters } from 'vuex'
 

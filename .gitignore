@@ -79,6 +79,7 @@ db.json
 # Media and compile staticfiles
 media/
 static/
+rud_samples/
 
 # IPython shell notebook
 .ipynb_checkpoints/

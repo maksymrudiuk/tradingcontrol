@@ -23,7 +23,7 @@
 import { AUTH_REQUEST } from '@/store/mutations/auth-mutation-types.js'
 
 export default {
-  name: 'Sign-in',
+  name: 'VLogin',
 
   data () {
     return {
@@ -42,6 +42,7 @@ export default {
     login: function () {
       const { username, password } = this
       this.$store.dispatch(AUTH_REQUEST, { username, password }).then(() => {
+        // Redirect to Home page in Dashboard
         this.$router.push('/dashboard/home')
       })
     }

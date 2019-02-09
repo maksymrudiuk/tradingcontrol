@@ -9,10 +9,10 @@
 
 <script>
 // Components imports
-import Sidebar from './nav/Sidebar.vue'
+import Sidebar from '../NestedComponents/Sidebar.vue'
 
 export default {
-  name: 'Content',
+  name: 'VContainer',
   components: {
     Sidebar
   }

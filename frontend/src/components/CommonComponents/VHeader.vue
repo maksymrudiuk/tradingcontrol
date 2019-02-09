@@ -46,7 +46,7 @@ import { mapGetters, mapState } from 'vuex'
 import { USER_REQUEST } from '@/store/mutations/user-mutation-types.js'
 
 export default {
-  name: 'Header',
+  name: 'VHeader',
 
   data () {
     return {

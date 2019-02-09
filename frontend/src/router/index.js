@@ -2,15 +2,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // Component imports
-import Greeting from '@/components/Greeting.vue'
-import SignIn from '@/components/sign-in/Sign-in.vue'
-import Home from '@/components/content/main/Home.vue'
-import Content from '@/components/content/Content.vue'
-import Goods from '@/components/content/main/Goods.vue'
-import Staff from '@/components/content/main/Staff.vue'
-import Reports from '@/components/content/main/Reports.vue'
-import Settings from '@/components/content/main/Settings.vue'
-import RAlbum from '@/components/content/main/gallery/RAlbum'
+import Greeting from '@/components/NestedComponents/Greeting.vue'
+import Login from '@/components/CommonComponents/VLogin.vue'
+import Home from '@/components/NestedComponents/Home.vue'
+import VContainer from '@/components/CommonComponents/VContainer.vue'
+import Goods from '@/components/NestedComponents/Goods.vue'
+import Staff from '@/components/NestedComponents/Staff.vue'
+import Reports from '@/components/NestedComponents/Reports.vue'
+import Settings from '@/components/NestedComponents/Settings.vue'
+import DetailAssortmentReport from '@/components/NestedComponents/DetailAssortmentReport'
 // Store imports
 import store from '@/store.js'
 
@@ -29,7 +29,7 @@ const ifAuthenticated = (to, from, next) => {
     next()
     return
   }
-  next('/sign-in')
+  next('accounts/signin')
 }
 
 const ifDirector = (to, from, next) => {
@@ -45,13 +45,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'main',
+      name: 'greeting',
       component: Greeting
     },
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: Content,
+      component: VContainer,
       beforeEnter: ifAuthenticated,
       children: [
         {
@@ -79,15 +79,15 @@ export default new Router({
         {
           path: 'reports/:reportId/',
           name: 'reportDetails',
-          component: RAlbum,
+          component: DetailAssortmentReport,
           props: true
         }
       ]
     },
     {
-      path: '/sign-in',
-      name: 'sign-in',
-      component: SignIn,
+      path: 'accounts/signin',
+      name: 'login',
+      component: Login,
       beforeEnter: ifNotAuthenticated
     }
   ]
