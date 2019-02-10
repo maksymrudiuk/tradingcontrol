@@ -5,7 +5,8 @@
       :key="index"
       type="button"
       class="btn btn-warning"
-      @click="changeDateRange(item.button.value, item.button.name)">
+      :class="checkDate(item.button.value)"
+      @click="changeDateRange(item.button.value)">
       {{ item.button.name }}
     </button>
   </div>
@@ -44,18 +45,34 @@ export default {
       forDays: localStorage.dateSelector
         ? localStorage.getItem('dateSelector')
         : 14
+
     }
   },
 
   methods: {
-    changeDateRange: function (value, name) {
+    changeDateRange: function (value) {
       localStorage.dateSelector = value
       this.forDays = value
       this.$emit('clicked', value)
       this.$store.dispatch(GET_REPORTS, this.forDays)
+    },
+    checkDate: function (value) {
+      if (value === this.forDays) {
+        return 'btn-selected'
+      }
     }
   }
 }
 </script>
 
-<style></style>
+<style>
+.btn-selected {
+  color: #212529;
+  background-color: #e0a800;
+  border-color: #d39e00;
+}
+.btn:focus {
+  outline: none!important;
+  box-shadow: none!important;
+}
+</style>

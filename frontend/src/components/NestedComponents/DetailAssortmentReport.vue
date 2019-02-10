@@ -5,7 +5,7 @@
     <div class="row">
       <r-goods
         v-for="(item, key) in retrieveReport.assortment"
-        :key="key"
+        :key="key+1"
         :goods="item">
       </r-goods>
     </div>
@@ -20,7 +20,7 @@ import { mapGetters } from 'vuex'
 import { GET_RETRIEVE_REPORT } from '@/store/mutations/report-mutation-types.js'
 
 export default{
-  name: 'RAlbum',
+  name: 'DetailAssortmentReport',
   props: ['reportId', 'title', 'address'],
 
   components: {
