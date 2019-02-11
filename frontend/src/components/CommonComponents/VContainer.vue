@@ -8,10 +8,11 @@
 </template>
 
 <script>
-import Sidebar from './nav/Sidebar.vue'
+// Components imports
+import Sidebar from '../NestedComponents/Sidebar.vue'
 
 export default {
-  name: 'Content',
+  name: 'VContainer',
   components: {
     Sidebar
   }

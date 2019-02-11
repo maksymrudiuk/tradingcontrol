@@ -1,17 +1,7 @@
 <template>
   <main role="main" class="col-lg-10 col-md-10 ml-sm-auto px-4">
     <h2 class="content-title">Головна</h2>
-    <div class="btn-group" role="group" aria-label="Report Data Range">
-      <button
-        v-for="(item, index) in daysButtons"
-        :key="index"
-        type="button"
-        class="btn btn-warning"
-        @click="changeReportsDateRange(item.button.value, item.button.name)">
-        {{ item.button.name }}
-      </button>
-    </div>
-    <p>Звіти за {{ selectedDayRange.name }}</p>
+    <c-date-selector @clicked="onClickChild" ></c-date-selector>
     <div class="chart">
       <bar-chart
         :chartdata='getBarDatacollection'
@@ -46,24 +36,42 @@
           <td>{{ report.t_start }}</td>
           <td>{{ report.t_finish }}</td>
           <td>{{ report.t_delta }}</td>
-          <td :class="'table-'+cellBackground(report.assortment_percent)">{{ report.assortment_percent }}</td>
+          <td
+            :class="'table-'+cellBackground(report.assortment_percent)">
+            <router-link
+              class='action-link'
+              :to="{ name: 'reportDetails',
+                     params: {
+                        reportId: report.id,
+                        address: report.store.address,
+                        title: report.store.name
+                      }
+                    }">
+          {{ report.assortment_percent }}
+        </router-link>
+          </td>
           <td>{{ report.owner.first_name }} {{ report.owner.last_name }}</td>
           <td>{{ report.created_at.split('T').join('-/-').slice(0, 21) }}</td>
         </tr>
       </tbody>
     </table>
-    <google-map v-bind:dateRange="selectedDayRange"></google-map>
+    <google-map :dateRange="forDays"></google-map>
   </main>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { GET_REPORTS } from '@/store/mutations/report-mutation-types.js'
+// Chart imports
 import barChartOptions from '@/chart/bar.js'
 import pieChartOptions from '@/chart/pie.js'
-import BarChart from './charts/BarChart.vue'
-import PieChart from './charts/PieChart.vue'
-import GoogleMap from './map/GoogleMap.vue'
+// Components imports
+import GoogleMap from '../AuxiliaryComponents/GoogleMaps/GoogleMap.vue'
+import BarChart from '../AuxiliaryComponents/Charts/BarChart.vue'
+import PieChart from '../AuxiliaryComponents/Charts/PieChart.vue'
+import CommonDateSelector from '../AuxiliaryComponents/DateSelectors/CommonDateSelector.vue'
+// Store imports
+import { mapGetters } from 'vuex'
+import { GET_REPORTS } from '@/store/mutations/report-mutation-types.js'
+import getCookie from '@/utils/cookies.js'
 
 export default {
   name: 'Home',
@@ -71,38 +79,15 @@ export default {
   components: {
     BarChart,
     PieChart,
-    'google-map': GoogleMap
+    'google-map': GoogleMap,
+    'c-date-selector': CommonDateSelector
   },
 
   data () {
     return {
       barOptions: barChartOptions,
       pieOptions: pieChartOptions,
-      daysButtons: [{
-        button: {
-          name: '1 день',
-          value: 1
-        }
-      }, {
-        button: {
-          name: '1 тиждень',
-          value: 7
-        }
-      }, {
-        button: {
-          name: '2 тижні',
-          value: 14
-        }
-      }, {
-        button: {
-          name: '1 місяць',
-          value: 31
-        }
-      }],
-      selectedDayRange: {
-        name: '2 тижні',
-        value: 14
-      }
+      forDays: getCookie('forDays') || 14
     }
   },
 
@@ -120,17 +105,13 @@ export default {
         return 'danger'
       }
     },
-    changeReportsDateRange: function (value, name) {
-      // Set selected value to display
-      this.selectedDayRange.name = name
-      this.selectedDayRange.value = value
-      // Send request again with new params
-      this.$store.dispatch(GET_REPORTS, value)
+    onClickChild: function (value) {
+      this.forDays = value
     }
   },
 
   beforeMount () {
-    this.$store.dispatch(GET_REPORTS, this.selectedDayRange.value)
+    this.$store.dispatch(GET_REPORTS, this.forDays)
   }
 }
 
@@ -150,7 +131,7 @@ export default {
 
 .action-link {
   color: black;
-  outline: none;
+  outline: none!important;
 }
 
 .table-bordered {

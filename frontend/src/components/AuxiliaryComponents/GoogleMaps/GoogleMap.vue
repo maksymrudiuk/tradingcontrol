@@ -10,7 +10,7 @@
             type="button"
             class="btn btn-warning filter-item"
             @click="setFullDateRange()">
-            За {{ dateRange.name }}
+            За весь доступний період
           </button>
           <date-picker
             placeholder="Оберіть потрібну дату"
@@ -48,11 +48,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+// Modules imports
+import moment from 'moment'
 import Datepicker from 'vuejs-datepicker'
 import { en, uk } from 'vuejs-datepicker/dist/locale'
+// Store imports
+import { mapGetters } from 'vuex'
 import { GET_STAFF } from '@/store/mutations/user-mutation-types.js'
-import moment from 'moment'
 
 export default {
   name: 'GoogleMap',
@@ -80,7 +82,7 @@ export default {
     ...mapGetters(['getStaff', 'getReports', 'isDirector']),
     disabledDates: function () {
       const disabledDates = {}
-      let timeAgo = moment().subtract(this.dateRange.value, 'days').format()
+      let timeAgo = moment().subtract(this.dateRange, 'days').format()
       disabledDates['to'] = new Date(timeAgo)
       disabledDates['from'] = new Date()
       return disabledDates

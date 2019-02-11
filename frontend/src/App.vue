@@ -1,23 +1,28 @@
 <template>
   <div id="app">
-    <MyHeader></MyHeader>
+    <v-header></v-header>
     <router-view></router-view>
-    <MyFooter></MyFooter>
+    <v-footer></v-footer>
   </div>
 </template>
 
 <script>
-import Header from './components/header/Header.vue'
-import Footer from './components/footer/Footer.vue'
+// Modules imports
 import axios from 'axios'
+// Components imports
+import VHeader from '@/components/CommonComponents/VHeader.vue'
+import VFooter from '@/components/CommonComponents/VFooter.vue'
+// Store imports
 import { AUTH_LOGOUT } from '@/store/mutations/auth-mutation-types.js'
 
 export default {
   name: 'app',
+
   components: {
-    'MyHeader': Header,
-    'MyFooter': Footer
+    'v-header': VHeader,
+    'v-footer': VFooter
   },
+
   created: function () {
     axios.interceptors.response.use(undefined, function (err) {
       return new Promise(function (resolve, reject) {

@@ -6,10 +6,14 @@
           <div class="modal-body">
             <slot name="body">
               Вийти ? &nbsp;&nbsp;&nbsp;
-              <button class="btn btn-warning modal-default-button" @click="logout">
+              <button
+                class="btn btn-warning modal-defatault-button"
+                @click="logout">
                 Так
               </button>
-              <button class="btn btn-danger modal-default-button" @click="$emit('close')">
+              <button
+                class="btn btn-danger modal-default-button"
+                @click="$emit('close')">
                 Ні
               </button>
             </slot>
@@ -21,18 +25,21 @@
 </template>
 
 <script>
+// Store imports
 import { mapGetters } from 'vuex'
 import { AUTH_LOGOUT } from '@/store/mutations/auth-mutation-types.js'
 
 export default{
   name: 'ExitConfirm',
+
   methods: {
     logout: function () {
       this.$store.dispatch(AUTH_LOGOUT).then(() => {
-        this.$router.push('/sign-in')
+        this.$router.push('accounts/signin')
       })
     }
   },
+
   computed: {
     ...mapGetters(['isAuthenticated'])
   }
