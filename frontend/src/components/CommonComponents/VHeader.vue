@@ -28,7 +28,7 @@
               v-if="!isAuthenticated && !authLoading && !isLoginPage"
               class="nav-item active nav-tip">
               <router-link
-                to="/sign-in"
+                :to="{ name: 'login'}"
                 class="nav-link">
                 Увійти
               </router-link>

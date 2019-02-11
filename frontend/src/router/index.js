@@ -3,7 +3,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 // Component imports
 import Greeting from '@/components/NestedComponents/Greeting.vue'
-import Login from '@/components/CommonComponents/VLogin.vue'
+import VLogin from '@/components/CommonComponents/VLogin.vue'
 import Home from '@/components/NestedComponents/Home.vue'
 import VContainer from '@/components/CommonComponents/VContainer.vue'
 import Goods from '@/components/NestedComponents/Goods.vue'
@@ -29,7 +29,7 @@ const ifAuthenticated = (to, from, next) => {
     next()
     return
   }
-  next('accounts/signin')
+  next('/accounts/signin')
 }
 
 const ifDirector = (to, from, next) => {
@@ -85,9 +85,9 @@ export default new Router({
       ]
     },
     {
-      path: 'accounts/signin',
+      path: '/accounts/signin',
       name: 'login',
-      component: Login,
+      component: VLogin,
       beforeEnter: ifNotAuthenticated
     }
   ]

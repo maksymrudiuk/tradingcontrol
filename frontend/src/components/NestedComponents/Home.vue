@@ -36,7 +36,20 @@
           <td>{{ report.t_start }}</td>
           <td>{{ report.t_finish }}</td>
           <td>{{ report.t_delta }}</td>
-          <td :class="'table-'+cellBackground(report.assortment_percent)">{{ report.assortment_percent }}</td>
+          <td
+            :class="'table-'+cellBackground(report.assortment_percent)">
+            <router-link
+              class='action-link'
+              :to="{ name: 'reportDetails',
+                     params: {
+                        reportId: report.id,
+                        address: report.store.address,
+                        title: report.store.name
+                      }
+                    }">
+          {{ report.assortment_percent }}
+        </router-link>
+          </td>
           <td>{{ report.owner.first_name }} {{ report.owner.last_name }}</td>
           <td>{{ report.created_at.split('T').join('-/-').slice(0, 21) }}</td>
         </tr>
@@ -58,6 +71,7 @@ import CommonDateSelector from '../AuxiliaryComponents/DateSelectors/CommonDateS
 // Store imports
 import { mapGetters } from 'vuex'
 import { GET_REPORTS } from '@/store/mutations/report-mutation-types.js'
+import getCookie from '@/utils/cookies.js'
 
 export default {
   name: 'Home',
@@ -73,7 +87,7 @@ export default {
     return {
       barOptions: barChartOptions,
       pieOptions: pieChartOptions,
-      forDays: localStorage.getItem('dateSelector')
+      forDays: getCookie('forDays') || 14
     }
   },
 
@@ -117,7 +131,7 @@ export default {
 
 .action-link {
   color: black;
-  outline: none;
+  outline: none!important;
 }
 
 .table-bordered {

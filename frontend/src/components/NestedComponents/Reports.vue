@@ -22,6 +22,7 @@ import CommonDateSelector from '../AuxiliaryComponents/DateSelectors/CommonDateS
 // Store imports
 import { mapGetters } from 'vuex'
 import { GET_REPORTS } from '@/store/mutations/report-mutation-types.js'
+import getCookie from '@/utils/cookies.js'
 
 export default{
   name: 'Reports',
@@ -33,7 +34,7 @@ export default{
 
   data () {
     return {
-      forDays: localStorage.getItem('dateSelector')
+      forDays: getCookie('forDays') || 14
     }
   },
 
