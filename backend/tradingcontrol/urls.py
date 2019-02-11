@@ -28,7 +28,7 @@ from .settings import MEDIA_ROOT, DEBUG
 urlpatterns = [
 
     # Entry point
-    # path('', TemplateView.as_view(template_name='index.html'), name="app"),
+    path('', TemplateView.as_view(template_name='index.html'), name="app"),
 
     # JWT Path from djangorestframework-jwt
     path('api/v1/token-auth/', obtain_jwt_token),
