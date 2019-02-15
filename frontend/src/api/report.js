@@ -15,5 +15,11 @@ export const Report = {
     ).then(response => {
       return response.data
     })
+  },
+  getStorePhotos (id) {
+    return HTTP.get('reports/' + id + '/detail/images/'
+    ).then(response => {
+      return response.data
+    })
   }
 }

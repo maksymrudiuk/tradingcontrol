@@ -12,7 +12,7 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 Vue.config.productionTip = false
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyDYNv60ip5q9janMxWQ8WKQYXtvgUSTR4I',
+    key: 'AIzaSyC3mROVp5kfCPmMpf-g30WOHjsHysdEubc',
     libraries: 'places'
   }
 })

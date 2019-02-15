@@ -2,6 +2,7 @@
 from django.utils import timezone
 from django.http import JsonResponse
 
+from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -13,10 +14,13 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 # Local modules
 from store.models import Store
+from .models import UploadPhoto
 from location.models import Route
+from user.models import UserProfile
 from .tasks import image_processing
 from tradingcontrol.settings import DEBUG
-from .serializers import UploadPhotoSerializer
+from .serializers import (UploadPhotoSerializer,
+                          GetPhotoSerializer)
 
 
 # Create your views here.
@@ -74,3 +78,28 @@ class Upload(APIView):
                                        time_data,
                                        str(self.request.user))
                 return Response(upload_photos, status=HTTP_201_CREATED)
+
+
+class GetStorePhotosViewSet(viewsets.ViewSet):
+
+    authentication_classes = (JSONWebTokenAuthentication,
+                              SessionAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+    def retrieve(self, request, pk=None):
+
+        if self.request.user.isDirector:
+
+            staff = UserProfile.objects.filter(
+                company=self.request.user.company)
+
+            queryset = UploadPhoto.objects.filter(
+                owner__in=staff,
+                report__id=pk)
+        else:
+            queryset = UploadPhoto.objects.filter(
+                owner=self.request.user,
+                report__id=pk)
+
+        serializer = GetPhotoSerializer(queryset, many=True)
+        return Response(serializer.data)

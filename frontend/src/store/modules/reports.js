@@ -1,10 +1,12 @@
 import { Report } from '@/api/report'
-import { GET_REPORTS, GET_REPORT_SUCCESS, GET_REPORT_ERROR, CLEAR_REPORT_AFTER_LOGOUT, GET_RETRIEVE_REPORT } from '../mutations/report-mutation-types.js'
+import { GET_REPORTS, GET_REPORT_SUCCESS, GET_REPORT_ERROR,
+  CLEAR_REPORT_AFTER_LOGOUT, GET_RETRIEVE_REPORT, GET_STORE_PHOTOS } from '../mutations/report-mutation-types.js'
 
 const state = {
   reports: [],
   status: '',
-  retrieve: {}
+  retrieve: {},
+  storePhotos: []
 }
 
 const getters = {
@@ -70,6 +72,9 @@ const getters = {
   },
   retrieveReport: state => {
     return state.retrieve
+  },
+  storePhotos: state => {
+    return state.storePhotos
   }
 }
 
@@ -87,10 +92,15 @@ const mutations = {
   [CLEAR_REPORT_AFTER_LOGOUT] (state) {
     state.status = 'logout'
     state.reports = []
+    state.retrieve = {}
+    state.storePhotos = []
   },
   [GET_RETRIEVE_REPORT] (state, response) {
     state.status = 'get detail report'
     state.retrieve = response
+  },
+  [GET_STORE_PHOTOS] (state, response) {
+    state.storePhotos = response
   }
 }
 
@@ -115,6 +125,19 @@ const actions = {
       Report.retrieveReport(id)
         .then(response => {
           commit(GET_RETRIEVE_REPORT, response)
+          resolve(response)
+        })
+        .catch(err => {
+          commit(GET_REPORT_ERROR, err)
+          reject(err)
+        })
+    })
+  },
+  [GET_STORE_PHOTOS] ({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      Report.getStorePhotos(id)
+        .then(response => {
+          commit(GET_STORE_PHOTOS, response)
           resolve(response)
         })
         .catch(err => {

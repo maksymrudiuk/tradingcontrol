@@ -44,7 +44,8 @@ class ReportData(models.Model):
     created_at = models.DateTimeField(_('Створений'), default=timezone.now)
 
     def __str__(self):
-        return '%s' % self.name
+        return '%s - %s - %s - %s (%s)' % (self.store, self.owner,
+                                           self.name, self.created_at, self.id)
 
 
 class ReportItem(models.Model):

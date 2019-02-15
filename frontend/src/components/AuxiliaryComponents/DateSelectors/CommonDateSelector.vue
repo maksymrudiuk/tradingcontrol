@@ -100,12 +100,12 @@ export default {
 
 <style>
 .btn-selected {
-  color: #212529;
+  color:            #212529;
   background-color: #e0a800;
-  border-color: #d39e00;
+  border-color:     #d39e00;
 }
 .btn:focus {
-  outline: none!important;
+  outline:    none!important;
   box-shadow: none!important;
 }
 </style>

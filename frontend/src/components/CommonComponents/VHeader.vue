@@ -75,19 +75,19 @@ export default {
   height: 40px;
 }
 .active-user {
-  color: white;
-  float: left;
+  color:       white;
+  float:       left;
   line-height: 40px;
 }
 
 .username {
   min-height: 40px;
-  margin: 0;
+  margin:     0;
 }
 
 .nav-link,
 .nav-logo {
-  color: white!important;
+  color:  white!important;
   cursor: pointer;
 }
 

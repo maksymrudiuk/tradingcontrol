@@ -38,7 +38,7 @@ export default{
 
 <style scoped>
 .my-card {
-  margin: 2em .5em;
+  margin:  2em .5em;
   padding: 1em;
 }
 .status-img {

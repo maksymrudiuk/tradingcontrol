@@ -12,3 +12,10 @@ class UploadPhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = UploadPhoto
         fields = ('file', 'created_at', 'store', 'owner')
+
+
+class GetPhotoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UploadPhoto
+        fields = ('file',)

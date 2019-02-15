@@ -123,14 +123,14 @@ export default {
 }
 
 .chart {
-  width: 100%;
-  height: auto;
-  margin-top: 2em;
+  width:         100%;
+  height:        auto;
+  margin-top:    2em;
   margin-bottom: 2em;
 }
 
 .action-link {
-  color: black;
+  color:   black;
   outline: none!important;
 }
 
@@ -138,14 +138,8 @@ export default {
   border: 1px solid black!important;
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0
-}
-
 .btn:focus {
-  outline: none!important;
+  outline:    none!important;
   box-shadow: none!important;
 }
 </style>
