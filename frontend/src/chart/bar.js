@@ -1,6 +1,13 @@
 export const barChartOptions = {
   responsive: true,
   maintainAspectRatio: false,
+  legend: {
+    display: false,
+    labels: {
+      fontColor: 'black',
+      fontSize: 12
+    }
+  },
   scales: {
     yAxes: [{
       ticks: {
@@ -14,7 +21,8 @@ export const barChartOptions = {
       categoryPercentage: 0.95,
       barPercentage: 0.95,
       ticks: {
-        padding: 15
+        padding: 15,
+        maxRotation: 90
       },
       gridLines: {
         offsetGridLines: true

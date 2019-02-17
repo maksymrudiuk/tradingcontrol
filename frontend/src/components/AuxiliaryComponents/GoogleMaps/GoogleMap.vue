@@ -178,12 +178,12 @@ export default {
 }
 
 .filter-item {
-  margin-left: 1em;
+  margin-left:  1em;
   margin-right: 1em;
 }
 
 .btn:focus {
-  outline: none!important;
+  outline:    none!important;
   box-shadow: none!important;
 }
 </style>

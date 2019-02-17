@@ -52,21 +52,21 @@ export default {
 
 <style scoped>
 *, ::after, ::before {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .center-inside {
-  display: flex;
+  display:          flex;
   background-color: #f8f9fa;
-  width: 100%;
-  min-height: calc(100vh - 96px);
-  margin: auto;
-  text-align: center!important;
+  width:            100%;
+  min-height:       calc(100vh - 96px);
+  margin:           auto;
+  text-align:       center!important;
 }
 
 .sign-in-form {
-  width: 100%;
-  margin: auto;
+  width:   100%;
+  margin:  auto;
   padding: 20px;
 }
 

@@ -35,3 +35,7 @@ class UploadPhoto(models.Model):
         on_delete=models.SET_NULL)
 
     created_at = models.DateTimeField(_('Завантажено'), default=timezone.now)
+
+    def __str__(self):
+        return '%s // %s // %s // %s' % (self.store.name, self.owner.username,
+                                         self.created_at, self.report.name)

@@ -88,6 +88,7 @@ rud_samples/
 # Some project help files
 urls-map
 test_users.txt
+/dumps
 
 # Dev requirements
 req_dev.txt
