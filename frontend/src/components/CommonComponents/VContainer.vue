@@ -10,7 +10,6 @@
 <script>
 // Components imports
 import Sidebar from '../NestedComponents/Sidebar.vue'
-import store from '@/store.js'
 
 export default {
   name: 'VContainer',
