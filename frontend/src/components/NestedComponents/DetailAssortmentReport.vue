@@ -1,7 +1,14 @@
 <template>
-  <main role="main" class="col-lg-10 col-md-10 ml-sm-auto px-4">
-    <h2 class="content-title">{{ title }}</h2>
-    <p><strong>{{ address }}</strong><p>
+  <div>
+    <h2
+      class="content-title">
+      {{ retrieveReport.store }}
+    </h2>
+    <p>
+      <strong>
+        {{ retrieveReport.store }}
+      </strong>
+    <p>
     <hr>
     <div class="row">
       <p class="row-title">Ассортимент</p>
@@ -26,7 +33,7 @@
         </div>
       </div>
     </div>
-  </main>
+  </div>
 </template>
 
 <script>
@@ -39,7 +46,7 @@ import { GET_RETRIEVE_REPORT, GET_STORE_PHOTOS } from '@/store/mutations/report-
 
 export default{
   name: 'DetailAssortmentReport',
-  props: ['reportId', 'title', 'address'],
+  props: ['reportId'],
 
   data () {
     return {
@@ -75,8 +82,8 @@ export default{
     this.$store.dispatch(GET_RETRIEVE_REPORT, this.reportId)
     this.$store.dispatch(GET_STORE_PHOTOS, this.reportId)
     // this.checkExif()
-    // console.log('Mounted')
-  }
+    console.log('Mounted')
+  },
 }
 </script>
 

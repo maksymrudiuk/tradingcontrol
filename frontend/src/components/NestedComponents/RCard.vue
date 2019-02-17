@@ -5,9 +5,14 @@
       <p class="card-text">{{ address }}</p>
       <p class="card-text">{{ dateOfCreate }}</p>
       <div>
-        <router-link
+<!--         <router-link
           class="btn btn-light"
           :to="{ name: 'reportDetails', params: { reportId: id, address: address, title: title }}">
+          Детально
+        </router-link> -->
+        <router-link
+          class="btn btn-light"
+          :to="{ name: 'reportDetails', params: { reportId: id }}">
           Детально
         </router-link>
       </div>
@@ -33,7 +38,7 @@ export default{
 
   methods: {
     hightligthCards: function () {
-      if (this.percent >= 40) {
+      if (this.percent >= this.threshold) {
         return 'card-success'
       } else {
         return 'card-warning'

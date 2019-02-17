@@ -2,6 +2,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // Component imports
+import StoreCards from '@/components/NestedComponents/StoreCards.vue'
 import Greeting from '@/components/NestedComponents/Greeting.vue'
 import VLogin from '@/components/CommonComponents/VLogin.vue'
 import Home from '@/components/NestedComponents/Home.vue'
@@ -34,6 +35,7 @@ const ifAuthenticated = (to, from, next) => {
 
 const ifDirector = (to, from, next) => {
   if (store.getters.isDirector) {
+    // console.log('beforeRouteEnter')
     next()
     return
   }
@@ -56,31 +58,42 @@ export default new Router({
       children: [
         {
           path: 'home',
-          component: Home
+          component: Home,
         },
         {
           path: 'goods',
           component: Goods,
-          beforeEnter: ifDirector
+          beforeEnter: ifDirector,
+          beforeResolve: ifDirector,
+          beforeEach: ifDirector
         },
         {
           path: 'staff',
           component: Staff,
-          beforeEnter: ifDirector
+          beforeEnter: ifDirector,
+          beforeResolve: ifDirector,
+          beforeEach: ifDirector
         },
         {
           path: 'settings',
-          component: Settings
+          component: Settings,
         },
         {
           path: 'reports',
-          component: Reports
-        },
-        {
-          path: 'reports/:reportId/',
-          name: 'reportDetails',
-          component: DetailAssortmentReport,
-          props: true
+          component: Reports,
+          children: [
+            {
+              path: '/',
+              component: StoreCards,
+              props: true
+            },
+            {
+              path: ':reportId/',
+              name: 'reportDetails',
+              component: DetailAssortmentReport,
+              props: true
+            }
+          ]
         }
       ]
     },

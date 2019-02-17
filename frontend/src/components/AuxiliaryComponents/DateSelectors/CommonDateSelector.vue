@@ -1,8 +1,8 @@
 <template>
   <div class="btn-group" role="group" aria-label="Report Data Range">
     <button
-      v-for="(item, key) in daysButtons"
-      :key="key"
+      v-for="(item) in daysButtons"
+      :key="item.id"
       :id="`btn-` + item.button.id"
       type="button"
       class="btn btn-warning"
