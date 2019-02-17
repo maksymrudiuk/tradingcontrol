@@ -38,10 +38,12 @@ class UploadPhoto(models.Model):
 
     def __str__(self):
         return '%s // %s // %s // %s' % (self.store.name, self.owner.username,
-                                         self.created_at, self.get_report_name)
+                                         self.created_at,
+                                         self.get_report_name())
 
     def get_report_name(self):
         try:
-            return self.report.name
+            name = self.report.name
+            return name
         except Exception:
             return None
