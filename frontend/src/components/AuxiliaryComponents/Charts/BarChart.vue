@@ -27,11 +27,6 @@ export default {
       const backgroundColor = []
       const borderColor = []
       let data = chartdata.datasets[0].data
-      // for (var item = 0; item <= chartdata.labels.length; item++) {
-      //   let color = rgbGenerate()
-      //   backgroundColor.push(color.rgba)
-      //   borderColor.push(color.rgb)
-      // }
 
       for (let item in data) {
         let color = getColor(data[item])
