@@ -2,7 +2,7 @@
   <main role="main" class="col-lg-10 col-md-10 ml-sm-auto px-4">
     <h2 class="content-title" >Мій Персонал</h2>
     <br>
-    <table class="table table-bordered">
+    <table v-if='isDirector' class="table table-bordered">
       <thead class="thead-dark">
         <tr>
           <th scope="col">#</th>
@@ -34,7 +34,7 @@ export default{
   name: 'Staff',
 
   computed: {
-    ...mapGetters(['getStaff'])
+    ...mapGetters(['getStaff', 'isDirector'])
   },
 
   beforeMount () {

@@ -35,7 +35,7 @@ const ifAuthenticated = (to, from, next) => {
 
 const ifDirector = (to, from, next) => {
   if (store.getters.isDirector) {
-    // console.log('beforeRouteEnter')
+    console.log('beforeEnter')
     next()
     return
   }
@@ -43,7 +43,7 @@ const ifDirector = (to, from, next) => {
 }
 
 export default new Router({
-  // mode: 'history', if mode active don`t have absolute reload
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -63,16 +63,12 @@ export default new Router({
         {
           path: 'goods',
           component: Goods,
-          beforeEnter: ifDirector,
-          beforeResolve: ifDirector,
-          beforeEach: ifDirector
+          beforeEnter: ifDirector
         },
         {
           path: 'staff',
           component: Staff,
-          beforeEnter: ifDirector,
-          beforeResolve: ifDirector,
-          beforeEach: ifDirector
+          beforeEnter: ifDirector
         },
         {
           path: 'settings',

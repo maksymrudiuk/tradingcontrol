@@ -5,7 +5,11 @@ import { GET_REPORTS, GET_REPORT_SUCCESS, GET_REPORT_ERROR,
 const state = {
   reports: [],
   status: '',
-  retrieve: {},
+  retrieve: {
+    store: Object,
+    owner: Object
+  },
+  // retrieve: {},
   storePhotos: []
 }
 

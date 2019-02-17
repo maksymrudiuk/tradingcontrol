@@ -2,11 +2,11 @@
   <div>
     <h2
       class="content-title">
-      {{ retrieveReport.store }}
+      {{ retrieveReport.store.name }}
     </h2>
     <p>
       <strong>
-        {{ retrieveReport.store }}
+        {{ retrieveReport.store.address }}
       </strong>
     <p>
     <hr>
@@ -82,7 +82,6 @@ export default{
     this.$store.dispatch(GET_RETRIEVE_REPORT, this.reportId)
     this.$store.dispatch(GET_STORE_PHOTOS, this.reportId)
     // this.checkExif()
-    console.log('Mounted')
   },
 }
 </script>
