@@ -58,7 +58,7 @@ export default new Router({
       children: [
         {
           path: 'home',
-          component: Home,
+          component: Home
         },
         {
           path: 'goods',
@@ -72,7 +72,7 @@ export default new Router({
         },
         {
           path: 'settings',
-          component: Settings,
+          component: Settings
         },
         {
           path: 'reports',

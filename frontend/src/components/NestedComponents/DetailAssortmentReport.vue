@@ -84,7 +84,7 @@ export default{
     this.$store.dispatch(GET_RETRIEVE_REPORT, this.reportId)
     this.$store.dispatch(GET_STORE_PHOTOS, this.reportId)
     // this.checkExif()
-  },
+  }
 }
 </script>
 
