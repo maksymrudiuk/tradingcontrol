@@ -36,6 +36,12 @@ class Store(models.Model):
         blank=True,
         null=True)
 
+    work_radius = models.IntegerField(
+        verbose_name=_('Робочий радіус у м'),
+        blank=True,
+        null=True,
+        default=500)
+
     last_visited = models.DateTimeField(
         _('Останній візит'),
         default=datetime(1970, 1, 1))
