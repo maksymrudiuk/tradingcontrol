@@ -25,7 +25,7 @@ FRONTEND_DIR = os.path.join(BASE_DIR, '..', 'frontend')
 SECRET_KEY = '#74^s105b6-q+886w$(@2v0$yvn*ubjsl2$vog%u_p5e)rs3p2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.43.86',
                  'trading-control.tk',
@@ -67,10 +67,10 @@ INSTALLED_APPS = [
     'register',
 ]
 
-if DEBUG:
-    INSTALLED_APPS += [
-        'django_extensions',  # use shell extensions
-    ]
+# if DEBUG:
+#     INSTALLED_APPS += [
+#         'django_extensions',  # use shell extensions
+#     ]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -123,16 +123,13 @@ except ImportError:
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.\
-        MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.\
-        CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.\
-        NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 

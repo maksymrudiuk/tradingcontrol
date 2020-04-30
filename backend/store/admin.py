@@ -14,7 +14,6 @@ class GoodsInStoreInline(admin.TabularInline):
 
 
 class StoreAdmin(admin.ModelAdmin):
-    search_fields = ['name']
     inlines = [
         GoodsInStoreInline,
     ]

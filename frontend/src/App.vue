@@ -17,7 +17,6 @@ import { AUTH_LOGOUT } from '@/store/mutations/auth-mutation-types.js'
 
 export default {
   name: 'app',
-
   components: {
     'v-header': VHeader,
     'v-footer': VFooter

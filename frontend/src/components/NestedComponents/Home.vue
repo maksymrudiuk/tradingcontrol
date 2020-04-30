@@ -118,10 +118,6 @@ export default {
 </script>
 
 <style scoped>
-.action-items {
-
-}
-
 .chart {
   width:         100%;
   height:        auto;
