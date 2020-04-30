@@ -96,5 +96,4 @@ req_dev.txt
 # prod dep
 /assets
 /support
-
-.gitignore
+/conf

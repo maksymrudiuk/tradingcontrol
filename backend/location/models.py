@@ -72,7 +72,7 @@ class AgentStore(models.Model):
 
     class Meta:
         verbose_name = _('Агент - Торгова точка')
-        verbose_name = _('Агенти - Торгові точки')
+        verbose_name_plural = _('Агенти - Торгові точки')
 
     agent_store = models.ForeignKey(
         'store.Store',

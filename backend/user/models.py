@@ -40,7 +40,7 @@ class UserProfile(AbstractUser):
 
     @property
     def admin_list_display(self):
-        return self._get_short_name()
+        return self.get_short_name()
 
     @property
     def isDirector(self):
